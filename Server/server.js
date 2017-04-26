@@ -5,7 +5,7 @@ var Path = require('path');
 var root = Path.join(__dirname, '../Client');
 var app = express();
 
-var PORT = 3002;
+var PORT = process.env.PORT || 3002;
 var IP = '127.0.0.1';
 
 
