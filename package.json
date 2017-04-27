@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "build": "webpack",
-    "build:watch": "webpack --watch"
+    "build:watch": "webpack --watch",
+    "mysqlBuild:dev": "mysql -u root < Server/db/schema.sql && mysql -u root < Server/db/populate.sql"
   },
   "repository": {
     "type": "git",
