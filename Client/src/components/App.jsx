@@ -15,6 +15,7 @@ class App extends React.Component {
       user: '',
       home: '',
       work: '',
+      lunch: '',
       session: false
     };
   }
@@ -43,6 +44,12 @@ class App extends React.Component {
     })
   }
 
+  setLunch(e) {
+    this.setState({
+      lunch: e.target.value
+    })
+  }
+
 
   render() {
     return (
@@ -50,7 +57,7 @@ class App extends React.Component {
         <Header/>
         {this.state.session ? <div>
                                 <Welcome user={this.state.user}/>
-                                <HomeTown />
+                                <HomeTown setLunch={this.setLunch.bind(this)}/>
                                 <ComparisonTown />
                               </div>:
                               <LogIn setUser={this.setUser.bind(this)}

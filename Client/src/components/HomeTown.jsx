@@ -1,6 +1,7 @@
 import React from 'react';
-//import App from './App.jsx';
 import Weather from './Weather.jsx'; 
+import Traffic from './Traffic.jsx';
+import Lunch from './Lunch.jsx';
 
 class HomeTown extends React.Component {
   
@@ -11,7 +12,15 @@ class HomeTown extends React.Component {
         <h3>
           Your Home Town
         </h3>
-        <Weather />
+        <div>
+          <Weather />
+        </div>
+        <div>
+          <Traffic />
+        </div>
+        <div>
+          <Lunch setLunch={this.props.setLunch}/>
+        </div>
       </div>
     )
   }

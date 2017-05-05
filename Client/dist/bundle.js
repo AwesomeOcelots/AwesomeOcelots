@@ -9564,6 +9564,7 @@ var App = function (_React$Component) {
       user: '',
       home: '',
       work: '',
+      lunch: '',
       session: false
     };
     return _this;
@@ -9598,6 +9599,13 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: 'setLunch',
+    value: function setLunch(e) {
+      this.setState({
+        lunch: e.target.value
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -9608,7 +9616,7 @@ var App = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(_Welcome2.default, { user: this.state.user }),
-          _react2.default.createElement(_Hometown2.default, null),
+          _react2.default.createElement(_Hometown2.default, { setLunch: this.setLunch.bind(this) }),
           _react2.default.createElement(_ComparisonTown2.default, null)
         ) : _react2.default.createElement(_LogIn2.default, { setUser: this.setUser.bind(this),
           setHome: this.setHome.bind(this),
@@ -22263,6 +22271,14 @@ var _Weather = __webpack_require__(187);
 
 var _Weather2 = _interopRequireDefault(_Weather);
 
+var _Traffic = __webpack_require__(189);
+
+var _Traffic2 = _interopRequireDefault(_Traffic);
+
+var _Lunch = __webpack_require__(190);
+
+var _Lunch2 = _interopRequireDefault(_Lunch);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22270,8 +22286,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//import App from './App.jsx';
-
 
 var HomeTown = function (_React$Component) {
   _inherits(HomeTown, _React$Component);
@@ -22294,7 +22308,21 @@ var HomeTown = function (_React$Component) {
           null,
           'Your Home Town'
         ),
-        _react2.default.createElement(_Weather2.default, null)
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_Weather2.default, null)
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_Traffic2.default, null)
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_Lunch2.default, { setLunch: this.props.setLunch })
+        )
       );
     }
   }]);
@@ -22482,6 +22510,112 @@ var Welcome = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Welcome;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(82);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Traffic = function (_React$Component) {
+  _inherits(Traffic, _React$Component);
+
+  function Traffic() {
+    _classCallCheck(this, Traffic);
+
+    return _possibleConstructorReturn(this, (Traffic.__proto__ || Object.getPrototypeOf(Traffic)).apply(this, arguments));
+  }
+
+  _createClass(Traffic, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'Traffic conditions'
+      );
+    }
+  }]);
+
+  return Traffic;
+}(_react2.default.Component);
+
+exports.default = Traffic;
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(82);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Lunch = function (_React$Component) {
+  _inherits(Lunch, _React$Component);
+
+  function Lunch() {
+    _classCallCheck(this, Lunch);
+
+    return _possibleConstructorReturn(this, (Lunch.__proto__ || Object.getPrototypeOf(Lunch)).apply(this, arguments));
+  }
+
+  _createClass(Lunch, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'What sounds good for lunch?',
+        _react2.default.createElement('input', { type: 'text', onChange: this.props.setLunch }),
+        _react2.default.createElement(
+          'button',
+          null,
+          'Suggest a spot'
+        )
+      );
+    }
+  }]);
+
+  return Lunch;
+}(_react2.default.Component);
+
+exports.default = Lunch;
 
 /***/ })
 /******/ ]);
