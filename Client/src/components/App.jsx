@@ -48,6 +48,7 @@ class App extends React.Component {
     this.setState({
       lunch: e.target.value
     })
+    console.log(this.state.lunch)
   }
 
 

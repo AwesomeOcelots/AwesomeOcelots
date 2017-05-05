@@ -9604,6 +9604,7 @@ var App = function (_React$Component) {
       this.setState({
         lunch: e.target.value
       });
+      console.log(this.state.lunch);
     }
   }, {
     key: 'render',
@@ -22443,7 +22444,7 @@ var Weather = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'weather' },
         'Todays Weather'
       );
     }
@@ -22550,7 +22551,7 @@ var Traffic = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'traffic' },
         'Traffic conditions'
       );
     }
@@ -22600,7 +22601,7 @@ var Lunch = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'lunch' },
         'What sounds good for lunch?',
         _react2.default.createElement('input', { type: 'text', onChange: this.props.setLunch }),
         _react2.default.createElement(
