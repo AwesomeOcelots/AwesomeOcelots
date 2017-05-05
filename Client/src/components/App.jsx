@@ -17,9 +17,7 @@ class App extends React.Component {
         <Header/>
         <hr></hr>
         <HomeTown />
-        <hr></hr>
         <ComparisonTown />
-        {/*<div id="Comparison" style={{float: 'left'}}><h2>Comparison Section</h2></div>*/}
     </div>
     )
   }
