@@ -1,0 +1,34 @@
+.hometown {
+  width: 450px;
+  height: 600px;
+  border: 1px solid blue;
+  box-sizing: border-box;
+  float: left;
+  background-color: rgba(0, 76, 255, 0.26);
+}
+
+.othertown {
+  width: 450px;
+  height: 600px;
+  box-sizing: border-box;
+  float: left;
+  background-color: greenyellow;
+}
+
+.weather {
+  width: 200px;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.traffic {
+  width: 200px;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.lunch {
+  width: 200px;
+  height: 100px;
+  box-sizing: border-box;
+}
