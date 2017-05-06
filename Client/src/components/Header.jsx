@@ -7,7 +7,7 @@ class Header extends React.Component {
     return (
       <div>
         <h1>
-          {'Always Greener?'}
+          Always Greener?
         </h1>
         <p>
           Get to know awesome new places, maybe be reminded of the things you love about where you are,
