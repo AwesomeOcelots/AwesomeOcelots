@@ -18,17 +18,20 @@
 .weather {
   width: 200px;
   height: 100px;
+  background-color: red;
   box-sizing: border-box;
 }
 
 .traffic {
   width: 200px;
   height: 100px;
+  background-color: blue;
   box-sizing: border-box;
 }
 
 .lunch {
   width: 200px;
   height: 100px;
+  background-color: green;
   box-sizing: border-box;
 }

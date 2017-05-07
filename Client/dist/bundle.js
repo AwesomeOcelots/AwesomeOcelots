@@ -10078,7 +10078,8 @@ var LogIn = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          'Home Address:',
+          'Home Address',
+          _react2.default.createElement('div', null),
           _react2.default.createElement('input', { type: 'text', onChange: this.props.setHome })
         ),
         _react2.default.createElement(

@@ -49,7 +49,7 @@ class App extends React.Component {
   logIn() {
     this.setState({
       session: !this.state.session
-    })
+    });
   }
 
   setLunch(e) {

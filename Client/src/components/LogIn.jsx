@@ -9,7 +9,10 @@ class LogIn extends React.Component {
           <input type='text' onChange={this.props.setUser}/>
         </div>
         <div>
-          Home Address:
+          Home Address
+        <div>
+          
+        </div>
           <input type='text' onChange={this.props.setHome}/>
         </div>
         <div>
