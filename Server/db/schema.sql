@@ -11,8 +11,12 @@ CREATE TABLE cities (
 
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
-  home_addr varchar(100),
-  work_addr varchar(100),
+  home_street varchar(100),
+  home_city varchar(100),
+  home_zip varchar(10),
+  work_street varchar(100),
+  work_city varchar(100),
+  work_zip varchar(10),
   home_city_id int,
   PRIMARY KEY (id),
   FOREIGN KEY (home_city_id) REFERENCES cities(id)
