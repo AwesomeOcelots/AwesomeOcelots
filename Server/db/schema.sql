@@ -6,8 +6,15 @@ CREATE TABLE cities (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(20) NOT NULL,
   img_uri varchar(20),
-  PRIMARY KEY (ID)
+  PRIMARY KEY (id)
 );
+
+CREATE TABLE zips (
+  id INT NOT NULL AUTO_INCREMENT,
+  zip INT NOT NULL,
+  city VARCHAR(50),
+  PRIMARY KEY (id)
+)
 
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
