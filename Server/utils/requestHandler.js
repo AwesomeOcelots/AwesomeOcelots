@@ -6,29 +6,37 @@ var db = require('../middleware/dbHandlers');
 
 
 module.exports.createUserSession = function(req, res){
-  var userName = req.body.name;
-  var homeDetails = {homeAddress: req.body.homeAddress, homeZip: req.body.homeZip};
-  var workDetails = {workZip: req.body.workZip};
+  console.log(req.body, 'REQ FROM HANDLER');
 
-  var userHomeAddress = homeDetails.homeAddress;
-  var userHomeZip = homeDetails.homeZip;
-  
-  var userWorkZip = workDetails.workZip;
+  if (!req.body.name){
+    console.log('Empty request. Redirect to /')
+    res.redirect('/');
+  } else {
+    var userName = req.body.name;
+    var homeDetails = {homeAddress: req.body.homeAddress, homeZip: req.body.homeZip};
+    var workDetails = {workZip: req.body.workZip};
 
-  var user = {userName, homeDetails, workDetails};
+    var userSession = {};
 
-  if (userName === ''){
-    res.send('Please enter your name to continue to your customized homepage');
-  }
-  if (userHomeAddress === '' || userHomeZip === ''){
-    res.send('Please enter your home address and zip code to continue to your customized homepage');
-  }
-  if (userWorkZip === ''){
-    res.send('Please enter your work zip code to continue to your customized homepage');
-  }
-  else {
-    console.log('SESSION CREATED', user)
-    return sessionChecker.createSession(req, res, user);
+    //If any fields are left empty
+    if (userName === ''){
+      res.send('Please enter your name to continue to your customized homepage');
+    }
+    if (homeDetails.homeAddress === '' || homeDetails.homeZip === ''){
+      res.send('Please enter your home address and zip code to continue to your customized homepage');
+    }
+    if (workDetails.workZip === ''){
+      res.send('Please enter your work zip code to continue to your customized homepage');
+    }
+    //Otherwise, create a new session from the user object
+    else {
+      // console.log('SESSION IS BEING CREATED FOR ', user, 'OBJECT');
+      // console.log('');
+      for (var detail in req.body){
+        userSession[detail] = req.body[detail];
+      }
+      res.send(userSession);
+    }
   }
 }
 
