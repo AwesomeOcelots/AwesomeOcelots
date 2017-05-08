@@ -5,7 +5,8 @@ var Path = require('path');
 
 var root = Path.join(__dirname, '../Client/dist');
 
-var handler = require('./utils/requestHandler.js')
+var session = require('./middleware/sessionChecker')
+var handler = require('./utils/requestHandler')
 
 
 var app = express();
@@ -21,10 +22,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/', session.checkUser, handler.navToLink);
 
-app.use('/', handler.createUserSession);
-
-app.use('/*', handler.createUserSession, handler.navToLink);
+app.use('/*', session.checkUser, handler.navToLink);
 
 app.use('/logout', handler.logOut);
 
