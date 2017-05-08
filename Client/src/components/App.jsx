@@ -14,40 +14,25 @@ class App extends React.Component {
 
     this.state = {
       user: '',
-      home: '',
+      home: {},
+      work: {},
       otherCity: '',
-      work: '',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
       showWeather: false,
-      showTraffic: false,
+      showTraffic: true,
       showLunch: false,
       suggestionMade: false, 
       session: false
     };
   }
 
-  setUser(e) {
+  logIn(newUser, homeObj, workObj) {
     this.setState({
-      user: e.target.value
-    });
-  }
-  
-  setHome(e) {
-    this.setState({
-      home: e.target.value
-    })
-  }
-
-  setWork(e) {
-    this.setState({
-      work: e.target.value
-    })
-  }
-
-  logIn() {
-    this.setState({
+      user: newUser,
+      home: homeObj,
+      work: workObj,
       session: !this.state.session
     });
   }
@@ -113,10 +98,7 @@ class App extends React.Component {
                                                 showTraffic={this.state.showTraffic}
                                                 showLunch={this.state.showLunch}/>
                               </div>:
-                                <LogIn setUser={this.setUser.bind(this)}
-                                       setHome={this.setHome.bind(this)}
-                                       setWork={this.setWork.bind(this)}
-                                       logIn={this.logIn.bind(this)}/>}   
+                                <LogIn logIn={this.logIn.bind(this)}/>}   
     </div>
     )
   }
