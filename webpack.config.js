@@ -3,6 +3,7 @@ var SRC_DIR = path.join(__dirname, '/Client/src');
 var DIST_DIR = path.join(__dirname, '/Client/dist');
 
 module.exports = {
+  devtool: 'source-map',
   entry: `${SRC_DIR}/index.js`,
   output: {
     filename: 'bundle.js',
