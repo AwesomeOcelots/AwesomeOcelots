@@ -11,6 +11,17 @@ var createUser = function(homeStreet, homeCity, homeZip, workStreet, workCity, w
   });
 };
 
+var getUserInfo = function(userId, cb) {
+  var sql = "SELECT * FROM users WHERE(id = ?) LIMIT 1;"
+  db.query(sql, [userId], function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+
 var createLike = function(userId, cityName, cb) {
   var sql = "INSERT likes (user_id, city_id) VALUES (?, (SELECT id FROM cities WHERE name = ?));"
   // We will probably have to alter this to take a city ID directly, as names aren't unique
