@@ -3,17 +3,23 @@ USE greener;
 INSERT cities (name) 
 VALUES ('San Franscisco'), ('Los Angeles'), ('New York City'), ('London'), ('Paris');
 
-INSERT users (home_addr, work_addr, home_city_id) 
-VALUES ('A home address', 'A work address', '1'),
-('A home address', 'A work address', '1'),
-('A home address', 'A work address', '2'),
-('A home address', 'A work address', '2'),
-('A home address', 'A work address', '3'),
-('A home address', 'A work address', '3'),
-('A home address', 'A work address', '4'),
-('A home address', 'A work address', '4'),
-('A home address', 'A work address', '5'),
-('A home address', 'A work address', '5');
+INSERT zips (zip, city_name, city_id) 
+VALUES (94102, 'San Francisco', 1), 
+(94118, 'San Francisco', 1), 
+(90013, 'Los Angeles', 2);
+
+
+INSERT users (home_street, home_city, home_zip, work_street, work_city, work_zip, home_city_id) 
+VALUES ('market street', 'San Francisco', '94102', 'work street', 'work city', 'work zip', (SELECT id FROM zips WHERE(zip = '94102'))),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '1'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '2'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '2'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '3'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '3'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '4'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '4'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '5'),
+('home street', 'home city', 'home zip', 'work street', 'work city', 'work zip', '5');
 
 INSERT likes (user_id, city_id) 
 VALUES (1, 2),

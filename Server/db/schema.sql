@@ -12,9 +12,10 @@ CREATE TABLE cities (
 CREATE TABLE zips (
   id INT NOT NULL AUTO_INCREMENT,
   zip INT NOT NULL,
-  city VARCHAR(50),
+  city_name VARCHAR(50),
+  city_id INT,
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
@@ -40,5 +41,5 @@ CREATE TABLE likes (
 
 
 /*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
+ *    mysql -u root < server/db/schema.sql
  *  to create the database and the tables.*/
