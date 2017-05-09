@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import $ from 'jquery'
 import EnterUser from './EnterUser.jsx'
 import EnterHome from './EnterHome.jsx'
 import EnterWork from './EnterWork.jsx'
@@ -65,13 +66,31 @@ class LogIn extends React.Component {
       street: this.state.homeStreet,
       city: this.state.homeCity,
       zip: this.state.homeZip
-    }
+    };
     var workObj = {
       street: this.state.workStreet,
       city: this.state.workCity,
       zip: this.state.workZip
-    }
-    this.props.logIn(this.state.user, homeObj, workObj)
+    };
+    var userObj = {
+      userName: this.state.user,
+      homeAddress: homeObj,
+      workAddress: workObj
+    };
+    
+    $.ajax({
+      method: 'POST', 
+      url: '127.0.0.1:3002/???? Whatever ought to go here ????',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(userObj),
+      success: (data) => {
+        console.log('data added to users table: ', data);
+      },
+      fail: (data) => {
+        console.log('failed to post data. Error: ', data);
+      }
+    });
   }
 
   render() {

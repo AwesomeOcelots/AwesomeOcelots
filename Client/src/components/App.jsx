@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Header from './Header.jsx';
-import HomeTown from './Hometown.jsx';
-import ComparisonTown from './ComparisonTown.jsx';
-import LogIn from './LogIn.jsx';
-import Welcome from './Welcome.jsx';
+import React from 'react'
+import { Router, Route, hashHistory } from 'react-router'
+import Header from './Header.jsx'
+import HomeTown from './Hometown.jsx'
+import ComparisonTown from './ComparisonTown.jsx'
+import LogIn from './LogIn.jsx'
+import Welcome from './Welcome.jsx'
 import {yelpSearch} from '../Helpers.js'
 
 
@@ -21,26 +21,16 @@ class App extends React.Component {
       homeSuggestion: {},
       otherCitySuggestion: {},
       showWeather: false,
-      showTraffic: true,
+      showTraffic: false,
       showLunch: false,
-      suggestionMade: false, 
-      session: false
+      suggestionMade: false
     };
-  }
-
-  logIn(newUser, homeObj, workObj) {
-    this.setState({
-      user: newUser,
-      home: homeObj,
-      work: workObj,
-      session: !this.state.session
-    });
   }
 
   setLunch(e) {
     this.setState({
       lunch: e.target.value
-    })
+    });
   }
 
   getLunch() {
@@ -67,39 +57,38 @@ class App extends React.Component {
   toggleWeather() {
     this.setState({
       showWeather: !this.state.showWeather
-    })
+    });
   }
 
   toggleTraffic() {
     this.setState({
       showTraffic: !this.state.showTraffic
-    })
+    });
   }
 
   toggleLunch() {
     this.setState({
       showLunch: !this.state.showLunch
-    })
+    });
   }
 
   render() {
     return (
       <div>
         <Header/>
-        {this.state.session ? <div>
-                                <Welcome user={this.state.user}/>
-                                <HomeTown setLunch={this.setLunch.bind(this)}
-                                          suggestion={this.state.homeSuggestion}
-                                          suggestionMade={this.state.suggestionMade}
-                                          toggleWeather={this.toggleWeather.bind(this)}
-                                          toggleTraffic={this.toggleTraffic.bind(this)}
-                                          toggleLunch={this.toggleLunch.bind(this)}/>
-                                <ComparisonTown showWeather={this.state.showWeather}
-                                                showTraffic={this.state.showTraffic}
-                                                showLunch={this.state.showLunch}/>
-                              </div>:
-                                <LogIn logIn={this.logIn.bind(this)}/>}   
-    </div>
+        <div>
+          <Welcome user={this.state.user}/>
+          <HomeTown setLunch={this.setLunch.bind(this)}
+                    suggestion={this.state.homeSuggestion}
+                    suggestionMade={this.state.suggestionMade}
+                    toggleWeather={this.toggleWeather.bind(this)}
+                    toggleTraffic={this.toggleTraffic.bind(this)}
+                    toggleLunch={this.toggleLunch.bind(this)}/>
+          <ComparisonTown showWeather={this.state.showWeather}
+                          showTraffic={this.state.showTraffic}
+                          showLunch={this.state.showLunch}/>
+        </div>                         
+      </div>
     )
   }
 }
