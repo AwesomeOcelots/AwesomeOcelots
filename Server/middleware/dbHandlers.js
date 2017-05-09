@@ -1,5 +1,18 @@
 var db = require('../db/config.js');
 
+// We might not want to use this (alone) because it doesn't tie in zip codes
+// Img uri needs to be added manually
+var createCity = function(cityName, cb) {
+  var sql = "INSERT cities (name) VALUES (?);"
+  db.query(sql, [cityName], function(err, results, fields) {
+    if (err) {
+      cb(err, false);
+    } else {
+      cb(null, true);
+    }
+  });
+};
+
 var createUser = function(homeStreet, homeCity, homeZip, workStreet, workCity, workZip, cb) {
   var sql = "INSERT users (home_street, home_city, home_zip, work_street, work_city, work_zip, home_city_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM zips WHERE(zip = ?) LIMIT 1));"
   db.query(sql, [homeStreet, homeCity, homeZip, workStreet, workCity, workZip, homeZip], function(err, results, fields) {
@@ -50,3 +63,10 @@ var createLike = function(userId, cityName, cb) {
 };
 // true
 
+createCity('New New York', (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(JSON.stringify(data));
+  }
+});
