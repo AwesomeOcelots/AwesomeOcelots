@@ -61,12 +61,42 @@ var createLike = function(userId, cityName, cb) {
     }
   });
 };
-// true
 
-createCity('New New York', (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(JSON.stringify(data));
-  }
-});
+// Will need to swap to ID from city name eventually
+var getCityLikeCount = function(cityName, cb) {
+  var sql = "SELECT COUNT(likes.id) AS count FROM likes, cities WHERE city_id = cities.id AND name = ?;"
+  db.query(sql, [cityName], function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results[0].count);
+    }
+  });
+};
+// 5
+
+// Will need to swap to ID from city name eventually
+var getCityLikeCountList = function(cb) {
+  var sql = "SELECT name, COUNT(likes.id) AS count FROM likes, cities WHERE city_id = cities.id GROUP BY name;"
+  db.query(sql, function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+// [{"name":"London","count":3},{"name":"Los Angeles","count":10},{"name":"New York City","count":5},{"name":"San Franscisco","count":4}]
+
+var getMostLiked = function(cb) {
+  var sql = "SELECT name, COUNT(likes.id) AS count FROM likes, cities WHERE city_id = cities.id GROUP BY name ORDER BY count DESC LIMIT 1;"
+  db.query(sql, function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+// [{"name":"Los Angeles","count":10}]
+
