@@ -11,10 +11,15 @@ var createUser = function(homeStreet, homeCity, homeZip, workStreet, workCity, w
   });
 };
 
-// createUser('a street', 'Los Angeles', '90013', 'a street', 'Los Angeles', '90013', (err, data) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(data);
-//   }
-// });
+var createLike = function(userId, cityName, cb) {
+  var sql = "INSERT likes (user_id, city_id) VALUES (?, (SELECT id FROM cities WHERE name = ?));"
+  // We will probably have to alter this to take a city ID directly, as names aren't unique
+  db.query(sql, [userId, cityName], function(err, results, fields) {
+    if (err) {
+      cb(err, false);
+    } else {
+      cb(null, true);
+    }
+  });
+};
+
