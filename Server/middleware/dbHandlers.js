@@ -100,3 +100,37 @@ var getMostLiked = function(cb) {
 };
 // [{"name":"Los Angeles","count":10}]
 
+// Will probably later change cityNameB to id
+var getLikeCountA2B = function(cityIdA, cityNameB, cb) {
+  var sql = "SELECT name, COUNT(likes.id) AS count FROM users, likes, cities WHERE cities.id = city_id AND user_id = users.id AND home_city_id = ? AND name = ? GROUP BY name;"
+  db.query(sql, [cityIdA, cityNameB], function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results[0].count);
+    }
+  });
+};
+// 3
+
+var getCityAMostLiked = function(cityIdA, cb) {
+  var sql = "SELECT name, COUNT(likes.id) as count FROM users, likes, cities WHERE cities.id = city_id AND user_id = users.id AND home_city_id = ? GROUP BY name ORDER BY count DESC LIMIT 1;"
+  db.query(sql, [cityIdA], function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+// [{"name":"Los Angeles","count":3}]
+
+// Used this for testing
+// ********************
+// getCityAMostLiked(3, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(JSON.stringify(data));
+//   }
+// });
