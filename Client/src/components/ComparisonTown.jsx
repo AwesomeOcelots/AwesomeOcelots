@@ -10,7 +10,7 @@ class ComparisonTown extends React.Component {
     return (
       <div className='othertown'>
         <h3>
-          Some other place... Ya dig?
+          {this.props.cityName}
         </h3>
         <div>
           {this.props.showWeather ? <Weather /> : <div></div> }

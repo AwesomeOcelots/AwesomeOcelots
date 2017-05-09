@@ -1,5 +1,4 @@
 import React from 'react'
-import { Router, Route, hashHistory } from 'react-router'
 import Header from './Header.jsx'
 import HomeTown from './Hometown.jsx'
 import ComparisonTown from './ComparisonTown.jsx'
@@ -7,16 +6,19 @@ import LogIn from './LogIn.jsx'
 import Welcome from './Welcome.jsx'
 import {yelpSearch} from '../Helpers.js'
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: '',
-      home: {},
+      user: 'Russ',
+      home: {
+        street: '212 s. el camino real',
+        city: 'San Mateo, CA', 
+        zip: 94401
+      },
       work: {},
-      otherCity: '',
+      otherCity: 'Chicago, IL',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
@@ -52,6 +54,9 @@ class App extends React.Component {
         otherCitySuggestion: suggestion
       });
     });
+    this.setState({
+      suggestionMade: true     
+    });
   }
 
   toggleWeather() {
@@ -78,13 +83,16 @@ class App extends React.Component {
         <Header/>
         <div>
           <Welcome user={this.state.user}/>
-          <HomeTown setLunch={this.setLunch.bind(this)}
+          <HomeTown cityName={this.state.home.city}
+                    setLunch={this.setLunch.bind(this)}
+                    getLunch={this.getLunch.bind(this)}
                     suggestion={this.state.homeSuggestion}
                     suggestionMade={this.state.suggestionMade}
                     toggleWeather={this.toggleWeather.bind(this)}
                     toggleTraffic={this.toggleTraffic.bind(this)}
                     toggleLunch={this.toggleLunch.bind(this)}/>
-          <ComparisonTown showWeather={this.state.showWeather}
+          <ComparisonTown cityName={this.state.otherCity}
+                          showWeather={this.state.showWeather}
                           showTraffic={this.state.showTraffic}
                           showLunch={this.state.showLunch}/>
         </div>                         
