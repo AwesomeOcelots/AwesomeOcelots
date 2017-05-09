@@ -10,6 +10,8 @@ var createUser = function(homeStreet, homeCity, homeZip, workStreet, workCity, w
     }
   });
 };
+// example results (stringified):
+// "12345"
 
 var getUserInfo = function(userId, cb) {
   var sql = "SELECT * FROM users WHERE(id = ?) LIMIT 1;"
@@ -21,6 +23,19 @@ var getUserInfo = function(userId, cb) {
     }
   });
 };
+// [{"id":1,"home_street":"market street","home_city":"San Francisco","home_zip":"94102","work_street":"work street","work_city":"work city","work_zip":"work zip","home_city_id":1}]
+
+var getUserLikes = function(userId, cb) {
+  var sql = "SELECT name, cities.id FROM cities, likes WHERE cities.id = likes.city_id AND likes.user_id = ?;"
+  db.query(sql, [userId], function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+// [{"name":"Los Angeles","id":2},{"name":"New York City","id":3}]
 
 var createLike = function(userId, cityName, cb) {
   var sql = "INSERT likes (user_id, city_id) VALUES (?, (SELECT id FROM cities WHERE name = ?));"
@@ -33,4 +48,5 @@ var createLike = function(userId, cityName, cb) {
     }
   });
 };
+// true
 
