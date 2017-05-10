@@ -22,10 +22,12 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/', handler.createUserSession);
+//app.use('/', handler.createUserSession);
 
-app.use('/*', handler.createUserSession, handler.navToLink);
+app.post('/api/newuser', handler.createUser)
 
-app.use('/logout', handler.logOut);
+//app.use('/*', handler.createUserSession, handler.navToLink);
+
+// app.use('/logout', handler.logOut);
 
 module.exports = app;

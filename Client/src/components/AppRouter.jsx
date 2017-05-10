@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import App from './App.jsx'
 import LogIn from './LogIn'
 import { BrowserRouter as Router, Route, hashHistory } from 'react-router-dom'
@@ -8,12 +8,16 @@ class AppRouter extends React.Component {
     return (
       <Router history={hashHistory} >
         <div>
-          <Route path='/' component={App} />
-          <Route path='/login' component={LogIn} /> 
+          <div>
+            <Route exact={true} path='/other' component={App} />
+          </div>
+          <div>
+            <Route path='/' component={LogIn} /> 
+          </div>
         </div>
       </Router>
     )
   }
 }
 
-export default AppRouter
+export default AppRouter*/

@@ -74,18 +74,19 @@ class LogIn extends React.Component {
     };
     var userObj = {
       userName: this.state.user,
-      homeAddress: homeObj,
-      workAddress: workObj
+      home: homeObj,
+      work: workObj
     };
     
     $.ajax({
       method: 'POST', 
-      url: '127.0.0.1:3002/???? Whatever ought to go here ????',
+      url: 'http://127.0.0.1:3002/api/newuser',
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(userObj),
       success: (data) => {
         console.log('data added to users table: ', data);
+        this.props.setNewUser(userObj);
       },
       fail: (data) => {
         console.log('failed to post data. Error: ', data);
