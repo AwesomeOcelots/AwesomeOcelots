@@ -13,7 +13,7 @@ var createCity = function(cityName, cb) {
   });
 };
 
-var createUser = function(homeStreet, homeCity, homeZip, workStreet, workCity, workZip, cb) {
+module.exports.createUser = function(homeStreet, homeCity, homeZip, workStreet, workCity, workZip, cb) {
   var sql = "INSERT users (home_street, home_city, home_zip, work_street, work_city, work_zip, home_city_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM zips WHERE(zip = ?) LIMIT 1));"
   db.query(sql, [homeStreet, homeCity, homeZip, workStreet, workCity, workZip, homeZip], function(err, results, fields) {
     if (err) {

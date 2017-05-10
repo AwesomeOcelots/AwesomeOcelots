@@ -10,7 +10,7 @@ class HomeTown extends React.Component {
     return (
       <div className='hometown'>
         <h3>
-          Your Home Town
+          {this.props.cityName}
         </h3>
         <div>
           <Weather toggleWeather={this.props.toggleWeather}/>
@@ -20,6 +20,8 @@ class HomeTown extends React.Component {
         </div>
         <div>
           <Lunch setLunch={this.props.setLunch}
+                 getLunch={this.props.getLunch}
+                 suggestionMade={this.props.suggestionMade}
                  toggleLunch={this.props.toggleLunch}/>
         </div>
       </div>

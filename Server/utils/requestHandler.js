@@ -27,6 +27,7 @@ module.exports.createUserSession = function(req, res){
     res.send('Please enter your work zip code to continue to your customized homepage');
   }
   else {
+    res.redirect('/')
     console.log('SESSION CREATED', user)
     return sessionChecker.createSession(req, res, user);
   }
@@ -42,3 +43,19 @@ module.exports.logOut = function(req, res){
   });
 }
 
+module.exports.createUser = function(req, res) {
+  console.log('REQ.BODY=====>', req.body)
+  var homeStreet = req.body.home.street
+  var homeCity = req.body.home.city
+  var homeZip = req.body.home.zip
+  var workStreet = req.body.work.street
+  var workCity = req.body.work.city
+  var workZip = req.body.work.zip
+  db.createUser(homeStreet, homeCity, homeZip, workStreet, workCity, workZip, function(err, data) {
+    if (err) {
+      res.send(501, err);
+    } else {
+      res.send(200, data);
+    }
+  });
+}

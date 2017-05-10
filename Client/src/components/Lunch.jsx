@@ -6,9 +6,12 @@ class Lunch extends React.Component {
     return (
       <div className='lunch' onMouseEnter={this.props.toggleLunch}
                              onMouseLeave={this.props.toggleLunch}>
-        What sounds good for lunch?
-        <input type='text' onChange={this.props.setLunch} />
-        <button>Suggest a spot</button>
+        {!this.props.suggestionMade ? 
+          <div>
+            What sounds good for lunch?
+            <input type='text' onChange={this.props.setLunch} />
+            <button onClick={this.props.getLunch}>Suggest a spot</button>
+          </div> : <div>Try {this.props.suggestion}</div>}
       </div>
     )
   }
