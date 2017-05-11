@@ -26,7 +26,7 @@ module.exports.createUser = function(homeStreet, homeCity, homeZip, workStreet, 
 // example results (stringified):
 // "12345"
 
-var getUserInfo = function(userId, cb) {
+module.exports.getUserInfo = function(userId, cb) {
   var sql = "SELECT * FROM users WHERE(id = ?) LIMIT 1;"
   db.query(sql, [userId], function(err, results, fields) {
     if (err) {
