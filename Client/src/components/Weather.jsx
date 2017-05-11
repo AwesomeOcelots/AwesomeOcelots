@@ -10,6 +10,7 @@ class Weather extends React.Component {
       <div className='weather' onMouseEnter={this.props.toggleWeather} 
                                onMouseLeave={this.props.toggleWeather}>
         Todays Weather
+        {this.props.weather}
       </div>
     )
   } 

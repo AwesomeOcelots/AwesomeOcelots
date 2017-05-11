@@ -5,7 +5,7 @@ import HomeTown from './Hometown.jsx'
 import ComparisonTown from './ComparisonTown.jsx'
 import LogIn from './LogIn.jsx'
 import Welcome from './Welcome.jsx'
-import {yelpSearch} from '../Helpers.js'
+import { yelpSearch, greener } from '../Helpers.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,38 +13,49 @@ class App extends React.Component {
 
     this.state = {
       user: '',
+      userId: '',
       home: {},
       work: {},
       otherCity: '',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
+      weatherHere: '',
+      weatherThere: '',
+      trafficHere: '',
+      trafficThere: '',
       showWeather: false,
       showTraffic: true,
       showLunch: false,
       suggestionMade: false,
+      choiceMade: false,
       session: false
     };
 
-    // $.ajax({
-    //   method: 'GET', 
-    //   url: 'http://127.0.0.1:3002/setUser',
-    //   dataType: 'json',
-    //   contentType: 'application/json',
-    //   success: (data) => {
-    //     this.setState({
-    //       user: data.userName,
-    //       home: data.homeObj,
-    //       work: data.workObj,
-    //       session: data.session
-    //     });
-    //   }
-    // });
+    $.ajax({
+      method: 'GET', 
+      url: 'http://127.0.0.1:3002/setUser',
+      dataType: 'json',
+      contentType: 'application/json',
+      success: (data) => {
+        this.setState({
+          user: data.userName,
+          userId: data.userId,
+          home: data.homeObj,
+          work: data.workObj,
+          otherCity: data.otherCity,
+          weatherHere: data.weatherHere,
+          weatherThere: data.weatherThere,
+          trafficHere: data.trafficHere,
+          trafficThere: data.trafficThere,
+          session: data.session
+        });
+      }
+    });
 
   }
 
   setNewUser(userObj) {
-    console.log('HAPPENING')
     this.setState({
       user: userObj.userName,
       home: userObj.home,
@@ -101,6 +112,21 @@ class App extends React.Component {
     });
   }
 
+  chooseHome() {
+    this.setState({
+      choiceMade: true
+    });
+  }
+
+  chooseOtherCity() {
+    var likeObj = {
+      userId: this.state.userId,
+      otherCity: this.state.otherCity
+    };
+    this.chooseHome();
+    greener(likeObj);
+  }
+
   render() {
     return (
       <div>
@@ -108,6 +134,8 @@ class App extends React.Component {
         <div>
           {this.state.session ? <div><Welcome user={this.state.user}/>
                                 <HomeTown cityName={this.state.home.city}
+                                          weather={this.state.weatherHere}
+                                          traffic={this.state.trafficHere}
                                           setLunch={this.setLunch.bind(this)}
                                           getLunch={this.getLunch.bind(this)}
                                           suggestion={this.state.homeSuggestion}
@@ -116,9 +144,15 @@ class App extends React.Component {
                                           toggleTraffic={this.toggleTraffic.bind(this)}
                                           toggleLunch={this.toggleLunch.bind(this)}/>
                                 <ComparisonTown cityName={this.state.otherCity}
+                                                weather={this.state.weatherThere}
+                                                traffic={this.state.trafficThere}
                                                 showWeather={this.state.showWeather}
                                                 showTraffic={this.state.showTraffic}
-                                                showLunch={this.state.showLunch}/></div> :
+                                                suggestion={this.state.otherCitySuggestion}
+                                                showLunch={this.state.showLunch}
+                                                chooseHome={this.chooseHome.bind(this)}
+                                                chooseOtherCity={this.chooseOtherCity.bind(this)}
+                                                choiceMade={this.state.choiceMade}/></div> :
                                 <LogIn setNewUser={this.setNewUser.bind(this)}/> }
         </div>                         
       </div>

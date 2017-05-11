@@ -5,7 +5,8 @@ class Traffic extends React.Component {
     return (
       <div className='traffic' onMouseEnter={this.props.toggleTraffic} 
                                onMouseLeave={this.props.toggleTraffic}>
-        Traffic conditions
+        Your Commute Today Looks Like:
+        {this.props.traffic}
       </div>
     )
   }

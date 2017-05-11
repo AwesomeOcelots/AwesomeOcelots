@@ -4695,33 +4695,45 @@ var App = function (_React$Component) {
 
     _this.state = {
       user: '',
+      userId: '',
       home: {},
       work: {},
       otherCity: '',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
+      weatherHere: '',
+      weatherThere: '',
+      trafficHere: '',
+      trafficThere: '',
       showWeather: false,
       showTraffic: true,
       showLunch: false,
       suggestionMade: false,
+      choiceMade: false,
       session: false
     };
 
-    // $.ajax({
-    //   method: 'GET', 
-    //   url: 'http://127.0.0.1:3002/setUser',
-    //   dataType: 'json',
-    //   contentType: 'application/json',
-    //   success: (data) => {
-    //     this.setState({
-    //       user: data.userName,
-    //       home: data.homeObj,
-    //       work: data.workObj,
-    //       session: data.session
-    //     });
-    //   }
-    // });
+    _jquery2.default.ajax({
+      method: 'GET',
+      url: 'http://127.0.0.1:3002/setUser',
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function success(data) {
+        _this.setState({
+          user: data.userName,
+          userId: data.userId,
+          home: data.homeObj,
+          work: data.workObj,
+          otherCity: data.otherCity,
+          weatherHere: data.weatherHere,
+          weatherThere: data.weatherThere,
+          trafficHere: data.trafficHere,
+          trafficThere: data.trafficThere,
+          session: data.session
+        });
+      }
+    });
 
     return _this;
   }
@@ -4729,7 +4741,6 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'setNewUser',
     value: function setNewUser(userObj) {
-      console.log('HAPPENING');
       this.setState({
         user: userObj.userName,
         home: userObj.home,
@@ -4791,6 +4802,23 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: 'chooseHome',
+    value: function chooseHome() {
+      this.setState({
+        choiceMade: true
+      });
+    }
+  }, {
+    key: 'chooseOtherCity',
+    value: function chooseOtherCity() {
+      var likeObj = {
+        userId: this.state.userId,
+        otherCity: this.state.otherCity
+      };
+      this.chooseHome();
+      (0, _Helpers.greener)(likeObj);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -4805,6 +4833,8 @@ var App = function (_React$Component) {
             null,
             _react2.default.createElement(_Welcome2.default, { user: this.state.user }),
             _react2.default.createElement(_Hometown2.default, { cityName: this.state.home.city,
+              weather: this.state.weatherHere,
+              traffic: this.state.trafficHere,
               setLunch: this.setLunch.bind(this),
               getLunch: this.getLunch.bind(this),
               suggestion: this.state.homeSuggestion,
@@ -4813,9 +4843,15 @@ var App = function (_React$Component) {
               toggleTraffic: this.toggleTraffic.bind(this),
               toggleLunch: this.toggleLunch.bind(this) }),
             _react2.default.createElement(_ComparisonTown2.default, { cityName: this.state.otherCity,
+              weather: this.state.weatherThere,
+              traffic: this.state.trafficThere,
               showWeather: this.state.showWeather,
               showTraffic: this.state.showTraffic,
-              showLunch: this.state.showLunch })
+              suggestion: this.state.otherCitySuggestion,
+              showLunch: this.state.showLunch,
+              chooseHome: this.chooseHome.bind(this),
+              chooseOtherCity: this.chooseOtherCity.bind(this),
+              choiceMade: this.state.choiceMade })
           ) : _react2.default.createElement(_LogIn2.default, { setNewUser: this.setNewUser.bind(this) })
         )
       );
@@ -7112,8 +7148,18 @@ var Lunch = function (_React$Component) {
         ) : _react2.default.createElement(
           'div',
           null,
-          'Try ',
-          this.props.suggestion
+          _react2.default.createElement(
+            'div',
+            null,
+            'Try ',
+            this.props.suggestion.name
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'At ',
+            this.props.suggestion.address
+          )
         )
       );
     }
@@ -7165,7 +7211,8 @@ var Traffic = function (_React$Component) {
         'div',
         { className: 'traffic', onMouseEnter: this.props.toggleTraffic,
           onMouseLeave: this.props.toggleTraffic },
-        'Traffic conditions'
+        'Your Commute Today Looks Like:',
+        this.props.traffic
       );
     }
   }]);
@@ -7216,7 +7263,8 @@ var Weather = function (_React$Component) {
         'div',
         { className: 'weather', onMouseEnter: this.props.toggleWeather,
           onMouseLeave: this.props.toggleWeather },
-        'Todays Weather'
+        'Todays Weather',
+        this.props.weather
       );
     }
   }]);
@@ -20834,7 +20882,7 @@ module.exports = __webpack_require__(145);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.trafficSearch = exports.citiSearch = exports.weatherSearch = exports.yelpSearch = undefined;
+exports.greener = exports.yelpSearch = undefined;
 
 var _react = __webpack_require__(4);
 
@@ -20849,8 +20897,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var yelpSearch = exports.yelpSearch = function yelpSearch(searchObj, cb) {
   _jquery2.default.ajax({
     method: 'GET',
-    url: '127.0.0.1:3002/yelpsearch',
-    data: JSON.stringify(searchObj),
+    url: 'http://127.0.0.1:3002/yelp/' + searchObj.term + '/' + searchObj.location,
     dataType: 'json',
     contentType: 'application/json',
     success: function success(data) {
@@ -20862,50 +20909,18 @@ var yelpSearch = exports.yelpSearch = function yelpSearch(searchObj, cb) {
   });
 };
 
-var weatherSearch = exports.weatherSearch = function weatherSearch(serachObj, cb) {
+var greener = exports.greener = function greener(likeObj) {
   _jquery2.default.ajax({
-    method: 'GET',
-    url: '???',
-    data: JSON.stringify(searchObj),
+    method: 'POST',
+    url: 'http://127.0.0.1:3002/api/greener',
     dataType: 'json',
     contentType: 'application/json',
-    success: function success(data) {
-      cb(data);
+    data: JSON.stringify(likeObj),
+    success: function success() {
+      console.log('Thank you for your input');
     },
-    fail: function fail() {
-      console.log('Error, data failed to load');
-    }
-  });
-};
-
-var citiSearch = exports.citiSearch = function citiSearch(searchObj, cb) {
-  _jquery2.default.ajax({
-    method: 'GET',
-    url: '???',
-    data: JSON.stringify(searchObj),
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function success(data) {
-      cb(data);
-    },
-    fail: function fail() {
-      console.log('Error, data failed to load');
-    }
-  });
-};
-
-var trafficSearch = exports.trafficSearch = function trafficSearch(searchObj, cb) {
-  _jquery2.default.ajax({
-    method: 'GET',
-    url: '???',
-    data: JSON.stringify(searchObj),
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function success(data) {
-      cb(data);
-    },
-    fail: function fail() {
-      console.log('Error, data failed to load');
+    fail: function fail(err) {
+      console.log('Failed to post ', err);
     }
   });
 };
@@ -20931,17 +20946,21 @@ var _App = __webpack_require__(38);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _Lunch = __webpack_require__(62);
+var _Greener = __webpack_require__(240);
 
-var _Lunch2 = _interopRequireDefault(_Lunch);
+var _Greener2 = _interopRequireDefault(_Greener);
 
-var _Traffic = __webpack_require__(63);
+var _LunchThere = __webpack_require__(238);
 
-var _Traffic2 = _interopRequireDefault(_Traffic);
+var _LunchThere2 = _interopRequireDefault(_LunchThere);
 
-var _Weather = __webpack_require__(64);
+var _TrafficThere = __webpack_require__(239);
 
-var _Weather2 = _interopRequireDefault(_Weather);
+var _TrafficThere2 = _interopRequireDefault(_TrafficThere);
+
+var _WeatherThere = __webpack_require__(237);
+
+var _WeatherThere2 = _interopRequireDefault(_WeatherThere);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20975,17 +20994,27 @@ var ComparisonTown = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          this.props.showWeather ? _react2.default.createElement(_Weather2.default, null) : _react2.default.createElement('div', null)
+          this.props.showWeather ? _react2.default.createElement(_WeatherThere2.default, { weather: this.props.weather }) : _react2.default.createElement('div', null)
         ),
         _react2.default.createElement(
           'div',
           null,
-          this.props.showTraffic ? _react2.default.createElement(_Traffic2.default, null) : _react2.default.createElement('div', null)
+          this.props.showTraffic ? _react2.default.createElement(_TrafficThere2.default, { traffic: this.props.traffic }) : _react2.default.createElement('div', null)
         ),
         _react2.default.createElement(
           'div',
           null,
-          this.props.showLunch ? _react2.default.createElement(_Lunch2.default, null) : _react2.default.createElement('div', null)
+          this.props.showLunch ? _react2.default.createElement(_LunchThere2.default, { suggestion: this.props.suggestion }) : _react2.default.createElement('div', null)
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          this.props.choiceMade ? _react2.default.createElement(
+            'div',
+            null,
+            'Thanks For The Input'
+          ) : _react2.default.createElement(_Greener2.default, { chooseHome: this.props.chooseHome,
+            chooseOtherCity: this.props.chooseOtherCity })
         )
       );
     }
@@ -21208,10 +21237,6 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _App = __webpack_require__(38);
-
-var _App2 = _interopRequireDefault(_App);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21316,12 +21341,14 @@ var HomeTown = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_Weather2.default, { toggleWeather: this.props.toggleWeather })
+          _react2.default.createElement(_Weather2.default, { toggleWeather: this.props.toggleWeather,
+            weather: this.props.weather })
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_Traffic2.default, { toggleTraffic: this.props.toggleTraffic })
+          _react2.default.createElement(_Traffic2.default, { toggleTraffic: this.props.toggleTraffic,
+            traffic: this.props.traffic })
         ),
         _react2.default.createElement(
           'div',
@@ -21329,6 +21356,7 @@ var HomeTown = function (_React$Component) {
           _react2.default.createElement(_Lunch2.default, { setLunch: this.props.setLunch,
             getLunch: this.props.getLunch,
             suggestionMade: this.props.suggestionMade,
+            suggestion: this.props.suggestion,
             toggleLunch: this.props.toggleLunch })
         )
       );
@@ -33414,6 +33442,235 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 235 */,
+/* 236 */,
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WeatherThere = function (_React$Component) {
+  _inherits(WeatherThere, _React$Component);
+
+  function WeatherThere() {
+    _classCallCheck(this, WeatherThere);
+
+    return _possibleConstructorReturn(this, (WeatherThere.__proto__ || Object.getPrototypeOf(WeatherThere)).call(this));
+  }
+
+  _createClass(WeatherThere, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'weather there' },
+        'The Weather Here is',
+        this.props.weather
+      );
+    }
+  }]);
+
+  return WeatherThere;
+}(_react2.default.Component);
+
+exports.default = WeatherThere;
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LunchThere = function (_React$Component) {
+  _inherits(LunchThere, _React$Component);
+
+  function LunchThere() {
+    _classCallCheck(this, LunchThere);
+
+    return _possibleConstructorReturn(this, (LunchThere.__proto__ || Object.getPrototypeOf(LunchThere)).apply(this, arguments));
+  }
+
+  _createClass(LunchThere, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'lunch there' },
+        'If you were here I\'d say try\'',
+        _react2.default.createElement(
+          'div',
+          null,
+          'Try ',
+          this.props.suggestion.name
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          this.props.suggestion.description
+        )
+      );
+    }
+  }]);
+
+  return LunchThere;
+}(_react2.default.Component);
+
+exports.default = LunchThere;
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TrafficThere = function (_React$Component) {
+  _inherits(TrafficThere, _React$Component);
+
+  function TrafficThere() {
+    _classCallCheck(this, TrafficThere);
+
+    return _possibleConstructorReturn(this, (TrafficThere.__proto__ || Object.getPrototypeOf(TrafficThere)).apply(this, arguments));
+  }
+
+  _createClass(TrafficThere, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'traffic there' },
+        'Traffic conditions here are',
+        _react2.default.createElement(
+          'div',
+          null,
+          this.props.traffic
+        )
+      );
+    }
+  }]);
+
+  return TrafficThere;
+}(_react2.default.Component);
+
+exports.default = TrafficThere;
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Greener = function (_React$Component) {
+  _inherits(Greener, _React$Component);
+
+  function Greener() {
+    _classCallCheck(this, Greener);
+
+    return _possibleConstructorReturn(this, (Greener.__proto__ || Object.getPrototypeOf(Greener)).apply(this, arguments));
+  }
+
+  _createClass(Greener, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'So what do you think, would you rather be here?',
+        _react2.default.createElement(
+          'button',
+          { onClick: this.props.chooseOtherCity },
+          'Yup, the grass looks greener over there'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.props.chooseHome },
+          'Nope, I\'m good where I am'
+        )
+      );
+    }
+  }]);
+
+  return Greener;
+}(_react2.default.Component);
+
+exports.default = Greener;
 
 /***/ })
 /******/ ]);
