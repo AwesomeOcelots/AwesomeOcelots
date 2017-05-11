@@ -29,3 +29,6 @@ SELECT name, COUNT(likes.id) FROM users, likes, cities WHERE cities.id = city_id
 
 // Get most popular city for people from a specific city
 SELECT name, COUNT(likes.id) as count FROM users, likes, cities WHERE cities.id = city_id AND user_id = users.id AND home_city_id = 1 GROUP BY name ORDER BY count DESC LIMIT 1;
+
+// get info for featured city
+SELECT cities.id, cities.name, cities.img_uri FROM cities, city_rotation WHERE city_id = cities.id AND current = 'TRUE';
