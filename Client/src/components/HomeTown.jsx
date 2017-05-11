@@ -13,15 +13,18 @@ class HomeTown extends React.Component {
           {this.props.cityName}
         </h3>
         <div>
-          <Weather toggleWeather={this.props.toggleWeather}/>
+          <Weather toggleWeather={this.props.toggleWeather}
+                   weather={this.props.weather}/>
         </div>
         <div>
-          <Traffic toggleTraffic={this.props.toggleTraffic}/>
+          <Traffic toggleTraffic={this.props.toggleTraffic}
+                   traffic={this.props.traffic}/>
         </div>
         <div>
           <Lunch setLunch={this.props.setLunch}
                  getLunch={this.props.getLunch}
                  suggestionMade={this.props.suggestionMade}
+                 suggestion={this.props.suggestion}
                  toggleLunch={this.props.toggleLunch}/>
         </div>
       </div>
