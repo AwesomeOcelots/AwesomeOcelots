@@ -50,7 +50,19 @@ CREATE TABLE city_rotation (
 INSERT city_rotation (id, city_id, name) 
 VALUES (99999, 0, 'loopBack');
 
-
+DELIMITER //
+CREATE PROCEDURE nextFeaturedCity() 
+BEGIN
+  SELECT id INTO @active_id FROM city_rotation WHERE current = 'TRUE' LIMIT 1;
+  UPDATE city_rotation SET current = 'TRUE' WHERE id > @active_id LIMIT 1;
+  UPDATE city_rotation SET current = 'FALSE' WHERE current = 'TRUE' LIMIT 1;
+  IF (SELECT name FROM city_rotation WHERE current = 'TRUE' LIMIT 1) = 'loopBack' THEN 
+    UPDATE city_rotation SET current = 'FALSE' WHERE name = 'loopBack' LIMIT 1;
+    UPDATE city_rotation SET current = 'TRUE' LIMIT 1;
+  END IF;
+  SELECT * FROM city_rotation WHERE current = 'TRUE';
+END //
+DELIMITER ;
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/db/schema.sql
