@@ -34,15 +34,15 @@ class App extends React.Component {
 
     $.ajax({
       method: 'GET', 
-      url: 'http://127.0.0.1:3002/setUser',
+      url: 'http://127.0.0.1:3002/api/setUser',
       dataType: 'json',
       contentType: 'application/json',
       success: (data) => {
         this.setState({
-          user: data.userName,
+          user: data.user,
           userId: data.userId,
-          home: data.homeObj,
-          work: data.workObj,
+          home: data.home,
+          work: data.work,
           otherCity: data.otherCity,
           weatherHere: data.weatherHere,
           weatherThere: data.weatherThere,
