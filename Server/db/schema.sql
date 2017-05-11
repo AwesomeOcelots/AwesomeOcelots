@@ -43,8 +43,14 @@ CREATE TABLE city_rotation (
   id int NOT NULL AUTO_INCREMENT,
   city_id int NOT NULL,
   name varchar(20) NOT NULL,
+  current VARCHAR(5) DEFAULT 'FALSE',
   PRIMARY KEY (id)
 );
+
+INSERT city_rotation (id, city_id, name) 
+VALUES (99999, 0, 'loopBack');
+
+
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/db/schema.sql
