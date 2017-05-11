@@ -39,6 +39,12 @@ CREATE TABLE likes (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE city_rotation (
+  id int NOT NULL AUTO_INCREMENT,
+  city_id int NOT NULL,
+  name varchar(20) NOT NULL,
+  PRIMARY KEY (id)
+);
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/db/schema.sql

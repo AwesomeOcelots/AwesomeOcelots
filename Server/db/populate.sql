@@ -3,6 +3,9 @@ USE greener;
 INSERT cities (name) 
 VALUES ('San Franscisco'), ('Los Angeles'), ('New York City'), ('London'), ('Paris');
 
+INSERT city_rotation (id, name) 
+VALUES (3, 'New York City'), (4, 'London'), (5, 'Paris')
+
 INSERT zips (zip, city_name, city_id) 
 VALUES (94102, 'San Francisco', 1), 
 (94118, 'San Francisco', 1), 
