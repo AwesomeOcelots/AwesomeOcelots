@@ -15,6 +15,11 @@ app.use(cookieParser());
 app.use(express.static(root));
 app.set('trust proxy', 1);
 app.use(session({
+  cookie: {
+    originalMaxAge: 31556952000,
+    httpOnly: false
+  },
+  name: 'always_greener_cookie',
   secret:'NOT TELLING', 
   resave: false, 
   saveUninitialized: false
