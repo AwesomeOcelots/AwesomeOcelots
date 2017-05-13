@@ -5,8 +5,11 @@
 ## Team
 
 -Sebastian Boberg
+
 -Sim Kang
+
 -Alex Matranga
+
 -Russell Ward
 
 ##Table of Contents
