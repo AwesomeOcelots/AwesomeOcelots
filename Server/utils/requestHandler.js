@@ -46,9 +46,9 @@ var session = require('express-session');
 // }
 
 module.exports.checkSession = function(req, res) {
-  console.log('GETTING HERE????????', req.session);
+  console.log('GETTING HERE????????', req.sessionID);
   if (req.session.user) {
-    console.log('SESSION ID======>', req.session.user.id)
+    console.log('SESSION ID======>', req.sessionID)
     db.getUserInfo(req.session.user.id, function(err, data) {
       if (err) {
         res.send(404, err);
