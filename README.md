@@ -2,6 +2,7 @@
 
 > Welcome to AlwaysGreener! Find out about awesome new places and be reminded of what it is you love about where you live. All to answer the question 'is the grass TRULY greener on the other side?'
 
+
 ## Team
 
 -Sebastian Boberg
@@ -12,7 +13,8 @@
 
 -Russell Ward
 
-##Table of Contents
+
+## Table of Contents
 
 1. [Requirements](#requirements)
 1. [Development](#development)
@@ -27,6 +29,7 @@
 - Node 6.9.5
 - mysql 5.7.17
 
+
 ## Development
 
 ### Installing Dependencies
@@ -38,6 +41,7 @@ npm install
 npm run build:watch
 npm start
 ```
+
 
 ### Roadmap
 
