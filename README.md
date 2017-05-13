@@ -38,7 +38,7 @@ npm start
 
 ### Roadmap
 
-View the project roadmap [here](APPPLAN.md)
+View the project roadmap [here](AppPlan.md)
 
 
 ## Contributing
