@@ -1,4 +1,4 @@
-[App overview]
+## App overview
 
 
 AlwaysGreener will serve as a landing page. When someone visits the site, they will enter some basic information, including their home and work zip codes. Based on that, they will be provided with information about where they live, including the day's weather, their commute time, and lunch recommendations. They will also receive the same information for another city, and be given the choice to answer whether that city seems better (or worse) than where they are currently located.
@@ -9,18 +9,18 @@ https://github.com/AwesomeOcelots/AwesomeOcelots
 
 
 
-[API-Spec]
+## API-Spec
 
-Database--Mysql
+-Database--Mysql
 
-Server--Node and Express
+-Server--Node and Express
 
-Front-End--React, D3
-
-
+-Front-End--React, D3
 
 
-[TODO]
+
+
+## TODO
 
 Data visulization using D3. 
 	Show the connection between cities. What are the top 5 'greenest' cities of (ex. Chicago)? Use D3 to show those connections.
