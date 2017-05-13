@@ -23,6 +23,7 @@ https://github.com/AwesomeOcelots/AwesomeOcelots
 ## TODO
 
 Data visulization using D3. 
-	Show the connection between cities. What are the top 5 'greenest' cities of (ex. Chicago)? Use D3 to show those connections.
+	
+	-Show the connection between cities. What are the top 5 'greenest' cities of (ex. Chicago)? Use D3 to show those connections.
 	When a user selects one city, he or she should see a list of the top 'greenest' cities, according to residents of the selected city.
 
