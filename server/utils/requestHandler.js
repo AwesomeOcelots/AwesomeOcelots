@@ -1,7 +1,8 @@
 var db = require('../middleware/dbHandlers');
 var session = require('express-session');
 var yelpSearch = require('../middleware/lunchSuggestion.js');
-
+var trafficTime = require('../middleware/traffictime.js');
+var getWeather = require('../middleware/weather.js')
 
 module.exports.checkSession = function(req, res) {
   if (req.session.user) {
@@ -9,27 +10,57 @@ module.exports.checkSession = function(req, res) {
       if (err) {
         res.send(404, err);
       } else{
-        var thisUser = {
-          user: req.session.user.userName,
-          userId: data[0].id,
-          home: {
-            street: data[0].home_street,
-            city: data[0].home_city,
-            zip: data[0].home_zip
-          },
-          work: {
-            street: data[0].work_street,
-            city: data[0].work_city,
-            zip: data[0].work_zip
-          },
-          otherCity: '',
-          weatherHere: '',
-          weatherThere: '',
-          trafficHere: '',
-          trafficThere: '',
-          session: true
-        };
-        res.send(200, thisUser);
+        getFeaturedCity((err, FCdata) => {
+          if (err) {
+            console.log(err);
+          } else {
+            var featuredName = FCdata.name;
+
+            var origin = data[0].home_street + ' ' + data[0].home_city + ' ' + data[0].home_zip;
+            var destination = data[0].work_street + ' ' + data[0].work_city + ' ' + data[0].work_zip;
+            trafficTime(origin, destination, (err, homeTrafficData) => {
+              if (err) {
+                console.log(err);
+              } else {
+                var homeTrafficTime = homeTrafficData;
+
+                getWeather(origin, (err, homeWeatherData) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    getWeather(featuredName, (err, featuredWeatherData) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        var thisUser = {
+                          user: req.session.user.userName,
+                          userId: data[0].id,
+                          home: {
+                            street: data[0].home_street,
+                            city: data[0].home_city,
+                            zip: data[0].home_zip
+                          },
+                          work: {
+                            street: data[0].work_street,
+                            city: data[0].work_city,
+                            zip: data[0].work_zip
+                          },
+                          otherCity: featuredName,
+                          weatherHere: homeWeatherData,
+                          weatherThere: featuredWeatherData,
+                          trafficHere: homeTrafficTime,
+                          trafficThere: '',
+                          session: true
+                        };
+                        res.send(200, thisUser);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
       }
     });
   } else {
