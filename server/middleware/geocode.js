@@ -4,12 +4,12 @@ var googleMapsClient = require('@google/maps').createClient({
 
 module.exports = (address, cb)=>{
   googleMapsClient.geocode({
-  address: address,
-}, function(err, response) {
-  if (err) {
-    cb(err,null);
-  }else{
-    cb(null, response.json.results[0].geometry.location)
-  }
-});
+    address: address,
+  }, function(err, response) {
+    if (err) {
+      cb(err,null);
+    }else{
+      cb(null, response.json.results[0].geometry.location)
+    }
+  });
 }

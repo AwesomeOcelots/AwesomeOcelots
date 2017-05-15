@@ -2,7 +2,7 @@ var db = require('../middleware/dbHandlers');
 var session = require('express-session');
 var yelpSearch = require('../middleware/lunchSuggestion.js');
 var trafficTime = require('../middleware/traffictime.js');
-var getWeather = require('../middleware/weather.js')
+var getWeather = require('../middleware/weather.js');
 
 module.exports.checkSession = function(req, res) {
   if (req.session.user) {
