@@ -9,7 +9,7 @@ var MySQLStore = require('express-mysql-session')(session);
 var cityInfo = require('./middleware/cityinfo');
 var wikipedia = require("node-wikipedia");
 var traffic = require('./middleware/traffictime');
-var root = Path.join(__dirname, '../Client/dist');
+var root = Path.join(__dirname, '../client/dist');
 var weather = require('./middleware/weather');
 
 var app = express();
@@ -18,7 +18,7 @@ var sessionStore = new MySQLStore({
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: '',
+  password: 'Codingpass892',
   database: 'greener',
   checkExpriationInterval: 900000,
   expiration: 31556952000,
@@ -57,7 +57,6 @@ app.use((req, res, next) => {
 });
 
 
-//app.use('/', handler.createUserSession);
 
 app.get('/api/setUser', handler.checkSession);
 
@@ -74,8 +73,5 @@ app.get('/traffic', (req, res) => {
 app.get('/weather', (req, res) => {
   weather(res);
 });
-//app.use('/*', handler.createUserSession, handler.navToLink);
-
-// app.use('/logout', handler.logOut);
 
 module.exports = app;
