@@ -3,22 +3,50 @@
   font-family: "AvenirNextLTW01-Regular", "Avenir Next", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   color: whitesmoke;
 }
-
-#hometown {
+#weatherd,
+#trafficd,
+#lunchd {
+  position: absolute;
   width: 35%;
-  height: 590px;
+  height: 500px;
   box-sizing: border-box;
   float: left;
   margin-left: 0;
-  border-radius: 25px;
-}
+  border-radius: 50px;
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  text-align: center;
 
+  /* transition effect. not necessary */
+  transition: opacity .5s, visibility .5s;
+}
+#clunchd,
+#ctrafficd,
+#cweatherd {
+  position: absolute;
+  text-align: center;
+  width: 35%;
+  left: 65%;
+  height: 590px;
+  box-sizing: border-box;
+  float: left;
+  margin-right: 0;
+  border-radius: 25px;
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+
+  /* transition effect. not necessary */
+  transition: opacity .5s, visibility .5s;
+}
+#hometown, 
 #othertown {
   width: 35%;
   height: 590px;
   box-sizing: border-box;
   float: left;
-  margin-right: 0;
+  margin-left: 0;
   border-radius: 25px;
 }
 
@@ -46,6 +74,7 @@
   margin-left: auto;
   margin-right: auto;
 }
+
 #bg {
   position: fixed;
   top: 0;
@@ -83,92 +112,103 @@
   #bg {
     background: center center / cover no-repeat;
   }
-
   #bgvideo {
     display: none;
   }
 }
 
 #bglayer {
-    width: 100%;
-    height: 100%;
-    background: #545A63;
-    position: absolute;
-    z-index: 2;
-    opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  background: #545A63;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.8;
 }
+
 #welcome {
   text-align: center;
   font-size: 1em;
 }
+
 i {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
 .right {
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 
 .left {
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
 
 #middle {
   text-align: center;
   margin-top: 20px;
 }
+
 #quote {
   text-align: center;
   font-style: italic;
 }
+
 #weather {
-	-webkit-filter: drop-shadow(0px 0px 0px rgba(255,255,255,0.80));
+  -webkit-filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0.80));
   filter: invert(100%);
-	-webkit-transition: all 0.5s linear;
-	-o-transition: all 0.5s linear;
-	transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
   width: 150px;
   height: 150px;
   font-size: 200%;
   margin-top: 20px;
-	
 }
+
 #weather:hover {
-	-webkit-filter: drop-shadow(0px 00px 10px purple) invert(100%);
+  -webkit-filter: drop-shadow(0px 00px 10px purple) invert(100%);
 }
+
 #lunch {
-	-webkit-filter: drop-shadow(0px 0px 0px rgba(255,255,255,0.80));
+  -webkit-filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0.80));
   filter: invert(100%);
-	-webkit-transition: all 0.5s linear;
-	-o-transition: all 0.5s linear;
-	transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
   width: 150px;
   height: 150px;
   font-size: 200%;
   margin-top: 20px;
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 #lunch:hover {
-	-webkit-filter: drop-shadow(0px 00px 10px purple) invert(100%);
+  -webkit-filter: drop-shadow(0px 00px 10px purple) invert(100%);
 }
 
 #traffic {
-	-webkit-filter: drop-shadow(0px 0px 0px rgba(255,255,255,0.80));
+  -webkit-filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0.80));
   filter: invert(100%);
-	-webkit-transition: all 0.5s linear;
-	-o-transition: all 0.5s linear;
-	transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
   width: 150px;
   height: 150px;
   font-size: 200%;
   margin-top: 20px;
-	
 }
+
 #traffic:hover {
-	-webkit-filter: drop-shadow(0px 00px 10px purple) invert(100%);
+  -webkit-filter: drop-shadow(0px 00px 10px purple) invert(100%);
 }
+
+#wrap:hover #weatherd {
+  visibility: visible;
+  opacity: 1;
+}
+
