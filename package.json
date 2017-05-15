@@ -24,6 +24,7 @@
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "express-mysql-session": "^1.2.0",
     "express-session": "^1.15.2",
     "history": "^4.6.1",
     "jquery": "^3.2.1",
