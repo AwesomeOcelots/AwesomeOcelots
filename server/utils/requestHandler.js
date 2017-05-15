@@ -1,19 +1,14 @@
-var sessionChecker = require('../middleware/sessionChecker');
 var db = require('../middleware/dbHandlers');
 var session = require('express-session');
 var yelpSearch = require('../middleware/lunchSuggestion.js');
 
 
 module.exports.checkSession = function(req, res) {
-  console.log('GETTING HERE????????', req.sessionID);
   if (req.session.user) {
-    console.log('SESSION ID======>', req.sessionID)
     db.getUserInfo(req.session.user.id, function(err, data) {
       if (err) {
         res.send(404, err);
       } else{
-        console.log('DATA IS ======>', data[0].id)
-        console.log(req.session.user.userName)
         var thisUser = {
           user: req.session.user.userName,
           userId: data[0].id,
@@ -34,7 +29,6 @@ module.exports.checkSession = function(req, res) {
           trafficThere: '',
           session: true
         };
-        console.log('USER INFO=========>', thisUser)
         res.send(200, thisUser);
       }
     });
