@@ -16,7 +16,7 @@ class App extends React.Component {
       userId: '',
       home: {},
       work: {},
-      otherCity: 'Chicago, IL',
+      otherCity: 'Los Angeles',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
@@ -155,7 +155,10 @@ class App extends React.Component {
                                           suggestionMade={this.state.suggestionMade}
                                           toggleWeather={this.toggleWeather.bind(this)}
                                           toggleTraffic={this.toggleTraffic.bind(this)}
-                                          toggleLunch={this.toggleLunch.bind(this)}/>
+                                          toggleLunch={this.toggleLunch.bind(this)}
+                                          chooseHome={this.chooseHome.bind(this)}
+                                          chooseOtherCity={this.chooseOtherCity.bind(this)}
+                                          choiceMade={this.state.choiceMade}/>
                                 <ComparisonTown cityName={this.state.otherCity}
                                                 weather={this.state.weatherThere}
                                                 traffic={this.state.trafficThere}
@@ -163,10 +166,7 @@ class App extends React.Component {
                                                 showTraffic={this.state.showTraffic}
                                                 suggestionMade={this.state.suggestionMade}
                                                 suggestion={this.state.otherCitySuggestion}
-                                                showLunch={this.state.showLunch}
-                                                chooseHome={this.chooseHome.bind(this)}
-                                                chooseOtherCity={this.chooseOtherCity.bind(this)}
-                                                choiceMade={this.state.choiceMade}/></div> :
+                                                showLunch={this.state.showLunch}/></div> :
                                 <LogIn setNewUser={this.setNewUser.bind(this)}/> }
         </div>                         
       </div>

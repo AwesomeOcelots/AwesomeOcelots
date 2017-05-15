@@ -69,3 +69,15 @@ module.exports.createUser = function(req, res) {
 module.exports.yelpSearch = function(req, res) {
   yelpSearch(req, res)
 }
+
+module.exports.createLike = function(req, res) {
+  db.createLike(req.body.userId, req.body.otherCity, function(err, data) {
+    if (err) {
+      console.log('Error: ', err);
+      res.send(501, err);
+    } else {
+      console.log('like posted to the database');
+      res.send(200, data);
+    }
+  })
+}
