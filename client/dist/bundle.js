@@ -16980,6 +16980,8 @@ var _Helpers = __webpack_require__(84);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -17134,6 +17136,8 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _React$createElement;
+
       return _react2.default.createElement(
         'div',
         null,
@@ -17145,29 +17149,29 @@ var App = function (_React$Component) {
             'div',
             null,
             _react2.default.createElement(_Welcome2.default, { user: this.state.user }),
-            _react2.default.createElement(_Hometown2.default, { cityName: this.state.home.city,
+            _react2.default.createElement(_Hometown2.default, (_React$createElement = { cityName: this.state.home.city,
               weather: this.state.weatherHere,
               traffic: this.state.trafficHere,
               setLunch: this.setLunch.bind(this),
               getLunch: this.getLunch.bind(this),
               resetLunch: this.resetLunch.bind(this),
               suggestion: this.state.homeSuggestion,
-              thereSuggestion: this.state.otherCitySuggestion.url,
-              suggestionMade: this.state.suggestionMade,
+              thereSuggestion: this.state.otherCitySuggestion,
               toggleWeather: this.toggleWeather.bind(this),
               toggleTraffic: this.toggleTraffic.bind(this),
               toggleLunch: this.toggleLunch.bind(this),
               chooseHome: this.chooseHome.bind(this),
               chooseOtherCity: this.chooseOtherCity.bind(this),
-              choiceMade: this.state.choiceMade }),
+              choiceMade: this.state.choiceMade,
+              suggestionMade: this.state.suggestionMade
+            }, _defineProperty(_React$createElement, 'suggestion', this.state.homeSuggestion), _defineProperty(_React$createElement, 'showLunch', this.state.showLunch), _React$createElement)),
             _react2.default.createElement(_ComparisonTown2.default, { cityName: this.state.otherCity,
               weather: this.state.weatherThere,
               traffic: this.state.trafficThere,
-              showWeather: this.state.showWeather,
-              showTraffic: this.state.showTraffic,
-              suggestionMade: this.state.suggestionMade,
               suggestion: this.state.otherCitySuggestion,
-              showLunch: this.state.showLunch })
+              suggestionMade: this.state.suggestionMade,
+              showWeather: this.state.showWeather,
+              showTraffic: this.state.showTraffic })
           ) : _react2.default.createElement(_LogIn2.default, { setNewUser: this.setNewUser.bind(this) })
         )
       );
@@ -20152,9 +20156,25 @@ var ComparisonTown = function (_React$Component) {
             ' sdfgdsgdfg '
           ),
           _react2.default.createElement(
-            'p',
+            'div',
             { id: 'clunchd' },
-            ' sdfgdsfgdsfgdfsgdsfgdfsg '
+            this.props.suggestionMade ? _react2.default.createElement(
+              'div',
+              null,
+              'If You Were Here I\'d Say',
+              _react2.default.createElement(
+                'div',
+                null,
+                'Try ',
+                this.props.suggestion.name
+              ),
+              _react2.default.createElement(
+                'div',
+                null,
+                'at ',
+                this.props.suggestion.location.address1
+              )
+            ) : _react2.default.createElement('div', null)
           )
         ),
         _react2.default.createElement('div', { id: 'footer' })
@@ -20572,9 +20592,24 @@ var HomeTown = function (_React$Component) {
             ' 1232314435342 '
           ),
           _react2.default.createElement(
-            'p',
+            'div',
             { id: 'lunchd' },
-            ' foods '
+            this.props.suggestionMade ? _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'div',
+                null,
+                'Try ',
+                this.props.suggestion.name
+              ),
+              _react2.default.createElement(
+                'div',
+                null,
+                'at ',
+                this.props.suggestion.location.address1
+              )
+            ) : _react2.default.createElement('div', null)
           )
         ),
         _react2.default.createElement(
@@ -20596,7 +20631,12 @@ var HomeTown = function (_React$Component) {
             'div',
             null,
             _react2.default.createElement(_Lunch2.default, { setLunch: this.props.setLunch,
-              toggleLunch: this.props.toggleLunch })
+              toggleLunch: this.props.toggleLunch,
+              getLunch: this.props.getLunch,
+              resetLunch: this.props.resetLunch,
+              suggestion: this.props.suggestion,
+              thereSuggestion: this.props.thereSuggestion,
+              suggestionMade: this.props.suggestionMade })
           ),
           _react2.default.createElement(
             'div',
@@ -20838,8 +20878,7 @@ var Lunch = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'lunch', onMouseEnter: this.props.toggleLunch,
-          onMouseLeave: this.props.toggleLunch },
+        { className: 'lunch' },
         _react2.default.createElement(
           'div',
           { id: 'middle' },
@@ -20847,7 +20886,7 @@ var Lunch = function (_React$Component) {
         ),
         !this.props.suggestionMade ? _react2.default.createElement(
           'div',
-          null,
+          { id: 'middle' },
           _react2.default.createElement(
             'div',
             null,
@@ -20865,18 +20904,34 @@ var Lunch = function (_React$Component) {
           )
         ) : _react2.default.createElement(
           'div',
-          null,
+          { id: 'middle' },
           _react2.default.createElement(
             'div',
             null,
-            'Try ',
-            this.props.suggestion.name
+            'Here Suggestion',
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: this.props.suggestion.url, target: '_blank' },
+                this.props.suggestion.name
+              )
+            )
           ),
           _react2.default.createElement(
             'div',
             null,
-            'At ',
-            this.props.suggestion.location.address1
+            'There Suggestion',
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: this.props.thereSuggestion.url, target: '_blank' },
+                this.props.thereSuggestion.name
+              )
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -22406,20 +22461,6 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       return emptyFunction.thatReturnsNull;
     }
 
-    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-      var checker = arrayOfTypeCheckers[i];
-      if (typeof checker !== 'function') {
-        warning(
-          false,
-          'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' +
-          'received %s at index %s.',
-          getPostfixForTypeWarning(checker),
-          i
-        );
-        return emptyFunction.thatReturnsNull;
-      }
-    }
-
     function validate(props, propName, componentName, location, propFullName) {
       for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
         var checker = arrayOfTypeCheckers[i];
@@ -22552,9 +22593,6 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   // This handles more types than `getPropType`. Only used for error messages.
   // See `createPrimitiveTypeChecker`.
   function getPreciseType(propValue) {
-    if (typeof propValue === 'undefined' || propValue === null) {
-      return '' + propValue;
-    }
     var propType = getPropType(propValue);
     if (propType === 'object') {
       if (propValue instanceof Date) {
@@ -22564,23 +22602,6 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       }
     }
     return propType;
-  }
-
-  // Returns a string that is postfixed to a warning about an invalid type.
-  // For example, "undefined" or "of type array"
-  function getPostfixForTypeWarning(value) {
-    var type = getPreciseType(value);
-    switch (type) {
-      case 'array':
-      case 'object':
-        return 'an ' + type;
-      case 'boolean':
-      case 'date':
-      case 'regexp':
-        return 'a ' + type;
-      default:
-        return type;
-    }
   }
 
   // Returns class name of the object, if any.

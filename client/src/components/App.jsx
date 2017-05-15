@@ -151,22 +151,23 @@ class App extends React.Component {
                                           getLunch={this.getLunch.bind(this)}
                                           resetLunch={this.resetLunch.bind(this)}
                                           suggestion={this.state.homeSuggestion}
-                                          thereSuggestion={this.state.otherCitySuggestion.url}
-                                          suggestionMade={this.state.suggestionMade}
+                                          thereSuggestion={this.state.otherCitySuggestion}
                                           toggleWeather={this.toggleWeather.bind(this)}
                                           toggleTraffic={this.toggleTraffic.bind(this)}
                                           toggleLunch={this.toggleLunch.bind(this)}
                                           chooseHome={this.chooseHome.bind(this)}
                                           chooseOtherCity={this.chooseOtherCity.bind(this)}
-                                          choiceMade={this.state.choiceMade}/>
+                                          choiceMade={this.state.choiceMade}
+                                          suggestionMade={this.state.suggestionMade}
+                                          suggestion={this.state.homeSuggestion}
+                                          showLunch={this.state.showLunch}/>
                                 <ComparisonTown cityName={this.state.otherCity}
                                                 weather={this.state.weatherThere}
                                                 traffic={this.state.trafficThere}
-                                                showWeather={this.state.showWeather}
-                                                showTraffic={this.state.showTraffic}
-                                                suggestionMade={this.state.suggestionMade}
                                                 suggestion={this.state.otherCitySuggestion}
-                                                showLunch={this.state.showLunch}/></div> :
+                                                suggestionMade={this.state.suggestionMade}
+                                                showWeather={this.state.showWeather}
+                                                showTraffic={this.state.showTraffic}/></div> :
                                 <LogIn setNewUser={this.setNewUser.bind(this)}/> }
         </div>                         
       </div>
