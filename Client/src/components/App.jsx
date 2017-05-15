@@ -96,7 +96,13 @@ class App extends React.Component {
       thisHere.setState({
       suggestionMade: true     
       });
-    }, 1500);
+    }, 2000);
+  }
+
+  resetLunch() {
+    this.setState({
+      suggestionMade: !this.state.suggestionMade
+    });
   }
 
   toggleWeather() {
@@ -143,7 +149,9 @@ class App extends React.Component {
                                           traffic={this.state.trafficHere}
                                           setLunch={this.setLunch.bind(this)}
                                           getLunch={this.getLunch.bind(this)}
+                                          resetLunch={this.resetLunch.bind(this)}
                                           suggestion={this.state.homeSuggestion}
+                                          thereSuggestion={this.state.otherCitySuggestion.url}
                                           suggestionMade={this.state.suggestionMade}
                                           toggleWeather={this.toggleWeather.bind(this)}
                                           toggleTraffic={this.toggleTraffic.bind(this)}
@@ -153,6 +161,7 @@ class App extends React.Component {
                                                 traffic={this.state.trafficThere}
                                                 showWeather={this.state.showWeather}
                                                 showTraffic={this.state.showTraffic}
+                                                suggestionMade={this.state.suggestionMade}
                                                 suggestion={this.state.otherCitySuggestion}
                                                 showLunch={this.state.showLunch}
                                                 chooseHome={this.chooseHome.bind(this)}

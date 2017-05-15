@@ -17084,7 +17084,14 @@ var App = function (_React$Component) {
         thisHere.setState({
           suggestionMade: true
         });
-      }, 1500);
+      }, 2000);
+    }
+  }, {
+    key: 'resetLunch',
+    value: function resetLunch() {
+      this.setState({
+        suggestionMade: !this.state.suggestionMade
+      });
     }
   }, {
     key: 'toggleWeather',
@@ -17143,7 +17150,9 @@ var App = function (_React$Component) {
               traffic: this.state.trafficHere,
               setLunch: this.setLunch.bind(this),
               getLunch: this.getLunch.bind(this),
+              resetLunch: this.resetLunch.bind(this),
               suggestion: this.state.homeSuggestion,
+              thereSuggestion: this.state.otherCitySuggestion.url,
               suggestionMade: this.state.suggestionMade,
               toggleWeather: this.toggleWeather.bind(this),
               toggleTraffic: this.toggleTraffic.bind(this),
@@ -17153,6 +17162,7 @@ var App = function (_React$Component) {
               traffic: this.state.trafficThere,
               showWeather: this.state.showWeather,
               showTraffic: this.state.showTraffic,
+              suggestionMade: this.state.suggestionMade,
               suggestion: this.state.otherCitySuggestion,
               showLunch: this.state.showLunch,
               chooseHome: this.chooseHome.bind(this),
@@ -20149,7 +20159,8 @@ var ComparisonTown = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          this.props.showLunch ? _react2.default.createElement(_LunchThere2.default, { suggestion: this.props.suggestion }) : _react2.default.createElement('div', null)
+          this.props.showLunch ? _react2.default.createElement(_LunchThere2.default, { suggestionMade: this.props.suggestionMade,
+            suggestion: this.props.suggestion }) : _react2.default.createElement('div', null)
         ),
         _react2.default.createElement(
           'div',
@@ -20560,8 +20571,10 @@ var HomeTown = function (_React$Component) {
           null,
           _react2.default.createElement(_Lunch2.default, { setLunch: this.props.setLunch,
             getLunch: this.props.getLunch,
+            resetLunch: this.props.resetLunch,
             suggestionMade: this.props.suggestionMade,
             suggestion: this.props.suggestion,
+            thereSuggestion: this.props.thereSuggestion,
             toggleLunch: this.props.toggleLunch })
         )
       );
@@ -20819,6 +20832,33 @@ var Lunch = function (_React$Component) {
             null,
             'At ',
             this.props.suggestion.location.address1
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: this.props.suggestion.url, target: '_blank' },
+              'Check out this place'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: this.props.thereSuggestion, target: '_blank' },
+              'Check out that place'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: this.props.resetLunch },
+              'Try Something Else'
+            )
           )
         )
       );
@@ -20870,17 +20910,20 @@ var LunchThere = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'lunch there' },
-        'If you were here I\'d say try\'',
-        _react2.default.createElement(
+        this.props.suggestionMade ? _react2.default.createElement(
           'div',
           null,
-          'Try ',
-          this.props.suggestion.name
-        ),
-        _react2.default.createElement(
+          'If you were here I\'d say try\'',
+          _react2.default.createElement(
+            'div',
+            null,
+            'Try ',
+            this.props.suggestion.name
+          )
+        ) : _react2.default.createElement(
           'div',
           null,
-          this.props.suggestion.description
+          'Wonder what\'s good here?\''
         )
       );
     }

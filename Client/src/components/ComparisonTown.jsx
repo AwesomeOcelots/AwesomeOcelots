@@ -20,7 +20,8 @@ class ComparisonTown extends React.Component {
           {this.props.showTraffic ? <TrafficThere traffic={this.props.traffic}/> : <div></div> }
         </div>
         <div>
-          {this.props.showLunch ? <LunchThere suggestion={this.props.suggestion}/> : <div></div> }
+          {this.props.showLunch ? <LunchThere suggestionMade={this.props.suggestionMade}
+                                              suggestion={this.props.suggestion}/> : <div></div> }
         </div>
         <div>
           {this.props.choiceMade ? <div>Thanks For The Input</div> :
