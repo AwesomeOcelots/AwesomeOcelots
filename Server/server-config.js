@@ -6,8 +6,11 @@ var cookieParser = require('cookie-parser');
 var handler = require('./utils/requestHandler.js');
 var db = require('./middleware/dbHandlers');
 var MySQLStore = require('express-mysql-session')(session);
-
+var cityInfo = require('./middleware/cityinfo');
+var wikipedia = require("node-wikipedia");
+var traffic = require('./middleware/traffictime');
 var root = Path.join(__dirname, '../Client/dist');
+var weather = require('./middleware/weather');
 
 var app = express();
 
@@ -60,8 +63,17 @@ app.get('/api/setUser', handler.checkSession);
 
 app.post('/api/newuser', handler.createUser);
 
-app.get('/api/yelp/:term/:location', handler.yelpSearch);
+app.get('/cityinfo', (req, res) => {
+    cityInfo(res);
+});
 
+app.get('/traffic', (req, res) => {
+  traffic(['16 Jessie St San Francisco CA 94105'],['565 3rd Ave San Francisco'], res);
+});
+
+app.get('/weather', (req, res) => {
+  weather(res);
+});
 //app.use('/*', handler.createUserSession, handler.navToLink);
 
 // app.use('/logout', handler.logOut);

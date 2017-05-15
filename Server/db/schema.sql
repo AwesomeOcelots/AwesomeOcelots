@@ -1,3 +1,4 @@
+DROP DATABASE greener;
 CREATE DATABASE greener;
 
 USE greener;
