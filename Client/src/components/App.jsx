@@ -16,7 +16,7 @@ class App extends React.Component {
       userId: '',
       home: {},
       work: {},
-      otherCity: '',
+      otherCity: 'Chicago, IL',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
@@ -25,7 +25,7 @@ class App extends React.Component {
       trafficHere: '',
       trafficThere: '',
       showWeather: false,
-      showTraffic: true,
+      showTraffic: false,
       showLunch: false,
       suggestionMade: false,
       choiceMade: false,
@@ -43,7 +43,7 @@ class App extends React.Component {
           userId: data.userId,
           home: data.home,
           work: data.work,
-          otherCity: data.otherCity,
+          //otherCity: data.otherCity,
           weatherHere: data.weatherHere,
           weatherThere: data.weatherThere,
           trafficHere: data.trafficHere,
@@ -71,27 +71,32 @@ class App extends React.Component {
   }
 
   getLunch() {
+    var thisHere = this
     var hereOptions = {
       term: this.state.lunch,
-      location: this.state.work
+      location: this.state.work.street + ', ' + this.state.work.city + ' ' + this.state.work.zip
     };
-    yelpSearch(hereOptions, function(suggestion) {
-      this.setState({
-        homeSuggestion: suggestion
-      });
-    });
     var thereOptions = {
       term: this.state.lunch,
       location: this.state.otherCity
     };
-    yelpSearch(thereOptions, function(suggestion) {
-      this.setState({
-        otherCitySuggestion: suggestion
+    yelpSearch(hereOptions, function(hereSuggestion) {
+      thisHere.setState({
+        homeSuggestion: hereSuggestion
       });
+      console.log(thisHere.state.homeSuggestion)
     });
-    this.setState({
+    yelpSearch(thereOptions, function(thereSuggestion) {
+      thisHere.setState({
+        otherCitySuggestion: thereSuggestion
+      });
+      console.log(thisHere.state.otherCitySuggestion)
+    });
+    setTimeout(function() {
+      thisHere.setState({
       suggestionMade: true     
-    });
+      });
+    }, 1500);
   }
 
   toggleWeather() {

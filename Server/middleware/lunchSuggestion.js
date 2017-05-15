@@ -1,25 +1,28 @@
-app.get('/yelp', function(req, res) {
- 'use strict';
+// const config = require('../utils/config.js');
+// const yelp = require('yelp-fusion');
+
+// module.exports = function(searchTerm, searchLocation) {
+//  'use strict';
  
-  const yelp = require('yelp-fusion');
-  const id = '';
-  const sec = '';
+//   const id = config.yelpId;
+//   const sec = config.yelpSecret;
   
-  const searchRequest = {
-    term: req.body.term,
-    location: req.body.location
-  }
-  
+//   const searchRequest = {
+//     term: searchTerm,
+//     location: searchLocation
+//   }
+//   console.log('SearchREquset is========>', searchRequest);
 
-  return yelp.accessToken(id, sec)
-    .then(response => {
-      const client = yelp.client(response.jsonBody.access_token)
-       return client.search(searchRequest)
-    }).then((search) => {
-      console.log(search.jsonBody.businesses[0])
-      return search.jsonBody.businesses[0]
-    }).then((data) => {
-      res.status(200).send(data);
-    })
-
-});
+//   return yelp.accessToken(id, sec)
+//     .then(response => {
+//       const client = yelp.client(response.jsonBody.access_token)
+//        return client.search(searchRequest)
+//     }).then((search) => {
+//       console.log(search.jsonBody.businesses[0])
+//       return search.jsonBody.businesses[0]
+//     }).then(search => {
+//       res.send
+//     }).catch(err => {
+//       console.log(err)
+//     })
+// };

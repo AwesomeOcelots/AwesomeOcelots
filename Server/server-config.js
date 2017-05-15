@@ -60,6 +60,8 @@ app.get('/api/setUser', handler.checkSession);
 
 app.post('/api/newuser', handler.createUser);
 
+app.get('/api/yelp/:term/:location', handler.yelpSearch);
+
 //app.use('/*', handler.createUserSession, handler.navToLink);
 
 // app.use('/logout', handler.logOut);

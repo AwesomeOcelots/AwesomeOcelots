@@ -1,6 +1,9 @@
 var sessionChecker = require('../middleware/sessionChecker');
 var db = require('../middleware/dbHandlers');
 var session = require('express-session');
+//var yelpSearch = require('../middleware/lunchSuggestion.js');
+var yelp = require('yelp-fusion');
+var config = require('../../config.js');
 
 // var cityInfo = require('../middleware/cityinfo');
 // var traffic = require('../middleware/traffictime');
@@ -111,4 +114,29 @@ module.exports.createUser = function(req, res) {
       res.send(200, data);
     }
   });
+}
+
+module.exports.yelpSearch = function(req, res) {
+  console.log('Term is ==========>', req.params.term)
+  console.log('location is =========>', req.params.location)
+  const id = config.yelpId;
+  const sec = config.yelpSecret;
+  
+  const searchRequest = {
+    term: req.params.term,
+    location: req.params.location
+  }
+  
+  return yelp.accessToken(id, sec)
+    .then(response => {
+      const client = yelp.client(response.jsonBody.access_token)
+       return client.search(searchRequest)
+    }).then((search) => {
+      console.log(search.jsonBody.businesses[0])
+      return search.jsonBody.businesses[0]
+    }).then((data) => {
+      res.status(200).send(data);
+    }).catch(err => {
+      res.status(404).send(err);
+    })
 }

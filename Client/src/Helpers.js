@@ -4,7 +4,7 @@ import $ from 'jquery'
 export const yelpSearch = (searchObj, cb) => {
   $.ajax({
     method: 'GET',
-    url: 'http://127.0.0.1:3002/yelp/' + searchObj.term + '/' + searchObj.location,
+    url: 'http://127.0.0.1:3002/api/yelp/' + searchObj.term + '/' + searchObj.location,
     dataType: 'json',
     contentType: 'application/json',
     success: (data) => {

@@ -16999,7 +16999,7 @@ var App = function (_React$Component) {
       userId: '',
       home: {},
       work: {},
-      otherCity: '',
+      otherCity: 'Chicago, IL',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
@@ -17008,7 +17008,7 @@ var App = function (_React$Component) {
       trafficHere: '',
       trafficThere: '',
       showWeather: false,
-      showTraffic: true,
+      showTraffic: false,
       showLunch: false,
       suggestionMade: false,
       choiceMade: false,
@@ -17026,7 +17026,7 @@ var App = function (_React$Component) {
           userId: data.userId,
           home: data.home,
           work: data.work,
-          otherCity: data.otherCity,
+          //otherCity: data.otherCity,
           weatherHere: data.weatherHere,
           weatherThere: data.weatherThere,
           trafficHere: data.trafficHere,
@@ -17059,27 +17059,32 @@ var App = function (_React$Component) {
   }, {
     key: 'getLunch',
     value: function getLunch() {
+      var thisHere = this;
       var hereOptions = {
         term: this.state.lunch,
-        location: this.state.work
+        location: this.state.work.street + ', ' + this.state.work.city + ' ' + this.state.work.zip
       };
-      (0, _Helpers.yelpSearch)(hereOptions, function (suggestion) {
-        this.setState({
-          homeSuggestion: suggestion
-        });
-      });
       var thereOptions = {
         term: this.state.lunch,
         location: this.state.otherCity
       };
-      (0, _Helpers.yelpSearch)(thereOptions, function (suggestion) {
-        this.setState({
-          otherCitySuggestion: suggestion
+      (0, _Helpers.yelpSearch)(hereOptions, function (hereSuggestion) {
+        thisHere.setState({
+          homeSuggestion: hereSuggestion
         });
+        console.log(thisHere.state.homeSuggestion);
       });
-      this.setState({
-        suggestionMade: true
+      (0, _Helpers.yelpSearch)(thereOptions, function (thereSuggestion) {
+        thisHere.setState({
+          otherCitySuggestion: thereSuggestion
+        });
+        console.log(thisHere.state.otherCitySuggestion);
       });
+      setTimeout(function () {
+        thisHere.setState({
+          suggestionMade: true
+        });
+      }, 1500);
     }
   }, {
     key: 'toggleWeather',
@@ -20037,7 +20042,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var yelpSearch = exports.yelpSearch = function yelpSearch(searchObj, cb) {
   _jquery2.default.ajax({
     method: 'GET',
-    url: 'http://127.0.0.1:3002/yelp/' + searchObj.term + '/' + searchObj.location,
+    url: 'http://127.0.0.1:3002/api/yelp/' + searchObj.term + '/' + searchObj.location,
     dataType: 'json',
     contentType: 'application/json',
     success: function success(data) {
@@ -20813,7 +20818,7 @@ var Lunch = function (_React$Component) {
             'div',
             null,
             'At ',
-            this.props.suggestion.address
+            this.props.suggestion.location.address1
           )
         )
       );

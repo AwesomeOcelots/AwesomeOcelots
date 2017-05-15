@@ -16,7 +16,7 @@ class Lunch extends React.Component {
                                           Try {this.props.suggestion.name}
                                         </div>
                                         <div>
-                                          At {this.props.suggestion.address}
+                                          At {this.props.suggestion.location.address1}
                                         </div>
                                       </div>}
       </div>
