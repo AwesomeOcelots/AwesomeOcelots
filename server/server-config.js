@@ -57,7 +57,6 @@ app.use((req, res, next) => {
 });
 
 
-//app.use('/', handler.createUserSession);
 
 app.get('/api/setUser', handler.checkSession);
 
@@ -74,8 +73,5 @@ app.get('/traffic', (req, res) => {
 app.get('/weather', (req, res) => {
   weather(res);
 });
-//app.use('/*', handler.createUserSession, handler.navToLink);
-
-// app.use('/logout', handler.logOut);
 
 module.exports = app;
