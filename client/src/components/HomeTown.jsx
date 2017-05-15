@@ -25,6 +25,11 @@ class HomeTown extends React.Component {
         <br/>
         <div>
           <Lunch setLunch={this.props.setLunch}
+                 getLunch={this.props.getLunch}
+                 resetLunch={this.props.resetLunch}
+                 suggestion={this.props.suggestion}
+                 thereSuggestion={this.props.thereSuggestion}
+                 suggestionMade={this.props.suggestionMade}
                  toggleLunch={this.props.toggleLunch}/>
         </div> 
         <div>

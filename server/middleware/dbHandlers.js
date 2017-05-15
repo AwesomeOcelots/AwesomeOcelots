@@ -50,7 +50,7 @@ var getUserLikes = function(userId, cb) {
 };
 // [{"name":"Los Angeles","id":2},{"name":"New York City","id":3}]
 
-var createLike = function(userId, cityName, cb) {
+module.exports.createLike = function(userId, cityName, cb) {
   var sql = "INSERT likes (user_id, city_id) VALUES (?, (SELECT id FROM cities WHERE name = ?));"
   // We will probably have to alter this to take a city ID directly, as names aren't unique
   db.query(sql, [userId, cityName], function(err, results, fields) {

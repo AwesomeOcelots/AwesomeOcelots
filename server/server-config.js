@@ -62,6 +62,10 @@ app.get('/api/setUser', handler.checkSession);
 
 app.post('/api/newuser', handler.createUser);
 
+app.get('/api/yelp/:term/:location', handler.yelpSearch);
+
+app.post('/api/greener', handler.createLike);
+
 app.get('/cityinfo', (req, res) => {
     cityInfo(res);
 });
