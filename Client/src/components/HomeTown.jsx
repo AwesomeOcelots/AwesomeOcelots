@@ -23,8 +23,10 @@ class HomeTown extends React.Component {
         <div>
           <Lunch setLunch={this.props.setLunch}
                  getLunch={this.props.getLunch}
+                 resetLunch={this.props.resetLunch}
                  suggestionMade={this.props.suggestionMade}
                  suggestion={this.props.suggestion}
+                 thereSuggestion={this.props.thereSuggestion}
                  toggleLunch={this.props.toggleLunch}/>
         </div>
       </div>

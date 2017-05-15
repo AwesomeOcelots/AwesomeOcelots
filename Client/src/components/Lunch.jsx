@@ -16,7 +16,16 @@ class Lunch extends React.Component {
                                           Try {this.props.suggestion.name}
                                         </div>
                                         <div>
-                                          At {this.props.suggestion.address}
+                                          At {this.props.suggestion.location.address1}
+                                        </div>
+                                        <div>
+                                          <a href={this.props.suggestion.url} target="_blank">Check out this place</a>
+                                        </div>
+                                        <div>
+                                          <a href={this.props.thereSuggestion} target="_blank">Check out that place</a>
+                                        </div>
+                                        <div>
+                                          <button onClick={this.props.resetLunch}>Try Something Else</button>
                                         </div>
                                       </div>}
       </div>

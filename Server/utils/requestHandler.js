@@ -1,6 +1,7 @@
 var sessionChecker = require('../middleware/sessionChecker');
 var db = require('../middleware/dbHandlers');
 var session = require('express-session');
+var yelpSearch = require('../middleware/lunchSuggestion.js');
 
 // var cityInfo = require('../middleware/cityinfo');
 // var traffic = require('../middleware/traffictime');
@@ -111,4 +112,8 @@ module.exports.createUser = function(req, res) {
       res.send(200, data);
     }
   });
+}
+
+module.exports.yelpSearch = function(req, res) {
+  yelpSearch(req, res)
 }

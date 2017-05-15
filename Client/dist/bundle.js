@@ -16999,7 +16999,7 @@ var App = function (_React$Component) {
       userId: '',
       home: {},
       work: {},
-      otherCity: '',
+      otherCity: 'Chicago, IL',
       lunch: '',
       homeSuggestion: {},
       otherCitySuggestion: {},
@@ -17008,7 +17008,7 @@ var App = function (_React$Component) {
       trafficHere: '',
       trafficThere: '',
       showWeather: false,
-      showTraffic: true,
+      showTraffic: false,
       showLunch: false,
       suggestionMade: false,
       choiceMade: false,
@@ -17026,7 +17026,7 @@ var App = function (_React$Component) {
           userId: data.userId,
           home: data.home,
           work: data.work,
-          otherCity: data.otherCity,
+          //otherCity: data.otherCity,
           weatherHere: data.weatherHere,
           weatherThere: data.weatherThere,
           trafficHere: data.trafficHere,
@@ -17059,26 +17059,38 @@ var App = function (_React$Component) {
   }, {
     key: 'getLunch',
     value: function getLunch() {
+      var thisHere = this;
       var hereOptions = {
         term: this.state.lunch,
-        location: this.state.work
+        location: this.state.work.street + ', ' + this.state.work.city + ' ' + this.state.work.zip
       };
-      (0, _Helpers.yelpSearch)(hereOptions, function (suggestion) {
-        this.setState({
-          homeSuggestion: suggestion
-        });
-      });
       var thereOptions = {
         term: this.state.lunch,
         location: this.state.otherCity
       };
-      (0, _Helpers.yelpSearch)(thereOptions, function (suggestion) {
-        this.setState({
-          otherCitySuggestion: suggestion
+      (0, _Helpers.yelpSearch)(hereOptions, function (hereSuggestion) {
+        thisHere.setState({
+          homeSuggestion: hereSuggestion
         });
+        console.log(thisHere.state.homeSuggestion);
       });
+      (0, _Helpers.yelpSearch)(thereOptions, function (thereSuggestion) {
+        thisHere.setState({
+          otherCitySuggestion: thereSuggestion
+        });
+        console.log(thisHere.state.otherCitySuggestion);
+      });
+      setTimeout(function () {
+        thisHere.setState({
+          suggestionMade: true
+        });
+      }, 2000);
+    }
+  }, {
+    key: 'resetLunch',
+    value: function resetLunch() {
       this.setState({
-        suggestionMade: true
+        suggestionMade: !this.state.suggestionMade
       });
     }
   }, {
@@ -17138,7 +17150,9 @@ var App = function (_React$Component) {
               traffic: this.state.trafficHere,
               setLunch: this.setLunch.bind(this),
               getLunch: this.getLunch.bind(this),
+              resetLunch: this.resetLunch.bind(this),
               suggestion: this.state.homeSuggestion,
+              thereSuggestion: this.state.otherCitySuggestion.url,
               suggestionMade: this.state.suggestionMade,
               toggleWeather: this.toggleWeather.bind(this),
               toggleTraffic: this.toggleTraffic.bind(this),
@@ -17148,6 +17162,7 @@ var App = function (_React$Component) {
               traffic: this.state.trafficThere,
               showWeather: this.state.showWeather,
               showTraffic: this.state.showTraffic,
+              suggestionMade: this.state.suggestionMade,
               suggestion: this.state.otherCitySuggestion,
               showLunch: this.state.showLunch,
               chooseHome: this.chooseHome.bind(this),
@@ -20037,7 +20052,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var yelpSearch = exports.yelpSearch = function yelpSearch(searchObj, cb) {
   _jquery2.default.ajax({
     method: 'GET',
-    url: 'http://127.0.0.1:3002/yelp/' + searchObj.term + '/' + searchObj.location,
+    url: 'http://127.0.0.1:3002/api/yelp/' + searchObj.term + '/' + searchObj.location,
     dataType: 'json',
     contentType: 'application/json',
     success: function success(data) {
@@ -20144,7 +20159,8 @@ var ComparisonTown = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          this.props.showLunch ? _react2.default.createElement(_LunchThere2.default, { suggestion: this.props.suggestion }) : _react2.default.createElement('div', null)
+          this.props.showLunch ? _react2.default.createElement(_LunchThere2.default, { suggestionMade: this.props.suggestionMade,
+            suggestion: this.props.suggestion }) : _react2.default.createElement('div', null)
         ),
         _react2.default.createElement(
           'div',
@@ -20555,8 +20571,10 @@ var HomeTown = function (_React$Component) {
           null,
           _react2.default.createElement(_Lunch2.default, { setLunch: this.props.setLunch,
             getLunch: this.props.getLunch,
+            resetLunch: this.props.resetLunch,
             suggestionMade: this.props.suggestionMade,
             suggestion: this.props.suggestion,
+            thereSuggestion: this.props.thereSuggestion,
             toggleLunch: this.props.toggleLunch })
         )
       );
@@ -20813,7 +20831,34 @@ var Lunch = function (_React$Component) {
             'div',
             null,
             'At ',
-            this.props.suggestion.address
+            this.props.suggestion.location.address1
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: this.props.suggestion.url, target: '_blank' },
+              'Check out this place'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: this.props.thereSuggestion, target: '_blank' },
+              'Check out that place'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: this.props.resetLunch },
+              'Try Something Else'
+            )
           )
         )
       );
@@ -20865,17 +20910,20 @@ var LunchThere = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'lunch there' },
-        'If you were here I\'d say try\'',
-        _react2.default.createElement(
+        this.props.suggestionMade ? _react2.default.createElement(
           'div',
           null,
-          'Try ',
-          this.props.suggestion.name
-        ),
-        _react2.default.createElement(
+          'If you were here I\'d say try\'',
+          _react2.default.createElement(
+            'div',
+            null,
+            'Try ',
+            this.props.suggestion.name
+          )
+        ) : _react2.default.createElement(
           'div',
           null,
-          this.props.suggestion.description
+          'Wonder what\'s good here?\''
         )
       );
     }
