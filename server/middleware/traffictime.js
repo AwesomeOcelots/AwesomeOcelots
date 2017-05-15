@@ -10,11 +10,13 @@ var destinations = ['565 3rd Ave San Francisco'];
 
 //the get request for the data
 
-
-module.exports = (origins, destinations, res) => {
+module.exports = (origins, destinations, cb) => {
   distance.matrix(origins, destinations, function (err, distances) {
-    if(err) throw err;
+    if (err) {
+      cb (err, null);
+    } else {
       time = distances.rows[0].elements[0].duration_in_traffic.text;
-      res.end(time);
+      cb (null, time);
+    }
   });
 }
