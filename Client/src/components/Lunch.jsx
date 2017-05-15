@@ -7,25 +7,19 @@ class Lunch extends React.Component {
       <div className='lunch' onMouseEnter={this.props.toggleLunch}
                              onMouseLeave={this.props.toggleLunch}>
         {!this.props.suggestionMade ? <div>
-                                        What sounds good for lunch?
+                                        <div id="middle">
+                                      <img id="lunch" style={{"width" : "50px", "height" :"50px"}} src={require('url-loader?limit=10000!../../dist/styleresources/foods.png')} />
+                                      <figcaption> What sounds good for lunch? </figcaption>
                                         <input type='text' onChange={this.props.setLunch} />
                                         <button onClick={this.props.getLunch}>Suggest a spot</button>
+                                        </div>
                                       </div> : 
                                       <div>
                                         <div>
                                           Try {this.props.suggestion.name}
                                         </div>
                                         <div>
-                                          At {this.props.suggestion.location.address1}
-                                        </div>
-                                        <div>
-                                          <a href={this.props.suggestion.url} target="_blank">Check out this place</a>
-                                        </div>
-                                        <div>
-                                          <a href={this.props.thereSuggestion} target="_blank">Check out that place</a>
-                                        </div>
-                                        <div>
-                                          <button onClick={this.props.resetLunch}>Try Something Else</button>
+                                          At {this.props.suggestion.address}
                                         </div>
                                       </div>}
       </div>

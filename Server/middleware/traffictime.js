@@ -9,10 +9,12 @@ var origins = ['16 Jessie St San Francisco CA 94105'];
 var destinations = ['565 3rd Ave San Francisco'];
 
 //the get request for the data
-app.get('/traffic', (req, res) => {
+
+
+module.exports = (origins, destinations, res) => {
   distance.matrix(origins, destinations, function (err, distances) {
     if(err) throw err;
       time = distances.rows[0].elements[0].duration_in_traffic.text;
       res.end(time);
-  })
-});
+  });
+}

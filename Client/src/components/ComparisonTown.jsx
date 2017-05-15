@@ -9,25 +9,11 @@ class ComparisonTown extends React.Component {
   render() {
 
     return (
-      <div className='othertown'>
-        <h3>
-          {this.props.cityName}
-        </h3>
+      <div>
         <div>
-          {this.props.showWeather ? <WeatherThere weather={this.props.weather}/> : <div></div> }
+          <img id='othertown' src="https://res.cloudinary.com/simpleview/image/upload/c_fill,f_auto,h_767,q_65,w_1663/v1/clients/columbus/meetings_skyline_08ac1260-445a-47ce-9655-3039e6a8d6b7.jpg"></img>
         </div>
-        <div>
-          {this.props.showTraffic ? <TrafficThere traffic={this.props.traffic}/> : <div></div> }
-        </div>
-        <div>
-          {this.props.showLunch ? <LunchThere suggestionMade={this.props.suggestionMade}
-                                              suggestion={this.props.suggestion}/> : <div></div> }
-        </div>
-        <div>
-          {this.props.choiceMade ? <div>Thanks For The Input</div> :
-                                   <Greener chooseHome={this.props.chooseHome}
-                                            chooseOtherCity={this.props.chooseOtherCity} />}
-        </div>
+        <div id="footer"></div>
       </div>
     )
   }
