@@ -13,7 +13,17 @@ class HomeTown extends React.Component {
         <img id='hometown' src="https://i.ytimg.com/vi/_fnYFqHJ-fE/maxresdefault.jpg"></img>
         <p id="weatherd"> HERP DERP DERP </p>
         <p id="trafficd"> 1232314435342 </p>
-        <p id="lunchd"> foods </p>
+        <div id="lunchd">
+          {this.props.suggestionMade ? 
+          <div>
+            <div>
+              Try {this.props.suggestion.name}
+            </div>
+            <div>
+              at {this.props.suggestion.location.address1}
+            </div>
+          </div>: <div></div>}
+        </div>
         </div>
       <div className='widgets'>
         <div>
@@ -26,7 +36,12 @@ class HomeTown extends React.Component {
         <br/>
         <div>
           <Lunch setLunch={this.props.setLunch}
-                 toggleLunch={this.props.toggleLunch}/>
+                 toggleLunch={this.props.toggleLunch}
+                 getLunch={this.props.getLunch}
+                 resetLunch={this.props.resetLunch}
+                 suggestion={this.props.suggestion}
+                 thereSuggestion={this.props.thereSuggestion}
+                 suggestionMade={this.props.suggestionMade}/>
         </div> 
         <div>
           {this.props.choiceMade ? <div>Thanks For The Input</div> :
