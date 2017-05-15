@@ -9,7 +9,7 @@ var MySQLStore = require('express-mysql-session')(session);
 var cityInfo = require('./middleware/cityinfo');
 var wikipedia = require("node-wikipedia");
 var traffic = require('./middleware/traffictime');
-var root = Path.join(__dirname, '../Client/dist');
+var root = Path.join(__dirname, '../client/dist');
 var weather = require('./middleware/weather');
 
 var app = express();

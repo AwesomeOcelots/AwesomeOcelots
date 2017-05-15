@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Server/server.js",
+    "start": "nodemon server/server.js",
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "mysqlBuild:dev": "mysql -u root < Server/db/schema.sql && mysql -u root < Server/db/populate.sql"
+    "mysqlBuild:dev": "mysql -u root < server/db/schema.sql && mysql -u root < server/db/populate.sql"
   },
   "repository": {
     "type": "git",
