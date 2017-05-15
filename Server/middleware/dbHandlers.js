@@ -125,9 +125,33 @@ var getCityAMostLiked = function(cityIdA, cb) {
 };
 // [{"name":"Los Angeles","count":3}]
 
+var getFeaturedCity = function(cb) {
+  var sql = "SELECT cities.id, cities.name, cities.img_uri FROM cities, city_rotation WHERE city_id = cities.id AND current = 'TRUE';"
+  db.query(sql, function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+// [{"id":3,"name":"New York City","img_uri":null}]
+
+var nextFeaturedCity = function(cb) {
+  var sql = "CALL nextFeaturedCity;"
+  db.query(sql, function(err, results, fields) {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results[0][0]);
+    }
+  });
+};
+// {"id":2,"city_id":4,"name":"London","current":"TRUE"}
+
 // Used this for testing
 // ********************
-// getCityAMostLiked(3, (err, data) => {
+// nextFeaturedCity((err, data) => {
 //   if (err) {
 //     console.log(err);
 //   } else {
