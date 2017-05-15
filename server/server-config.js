@@ -18,7 +18,7 @@ var sessionStore = new MySQLStore({
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: 'Codingpass892',
+  password: '',
   database: 'greener',
   checkExpriationInterval: 900000,
   expiration: 31556952000,
