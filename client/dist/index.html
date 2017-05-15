@@ -1,29 +1,177 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="./styles.css"></link>
-  </head>
-  <body id="body">
-    <div id="app"></div>
-    <script type="text/javascript" src="bundle.js"></script>
-    <script type="text/javascript">
-		
-         function showLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            
-         }
 
-         function errorHandler(err) {
-            if(err.code == 1) {
-               alert("Error: Access is denied!");
-            }
-            
-            else if( err.code == 2) {
-               alert("Error: Position is unavailable!");
-            }
-         }
-			
-      </script>
-  </body>
+<head>
+  <link rel="stylesheet" href="./styles.css"></link>
+</head>
+
+<body id="body">
+  <div id="app"></div>
+  <script type="text/javascript" src="bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $('#weather').hover(function () {
+        $('#hometown').css({
+          'opacity': '0.5',
+          'transition:opacity': '1s'
+        });
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#hometown').css({
+          'opacity': '1',
+          'transition:opacity': '1s'
+        });
+      });
+      $('#weather').hover(function () {
+          $('#weatherd').css({
+            'visibility': 'visible',
+            'opacity': '1'
+          });
+        },
+        function () {
+          $('#weatherd').css({
+            'visibility': 'hidden',
+            'opacity': '0'
+          });
+        });
+
+
+
+      $('#weather').hover(function () {
+        $('#othertown').css({
+          'opacity': '0.5',
+          'transition:opacity': '1s'
+        });
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#othertown').css({
+          'opacity': '1',
+          'transition:opacity': '1s'
+        });
+      });
+      $('#weather').hover(function () {
+          $('#cweatherd').css({
+            'visibility': 'visible',
+            'opacity': '1'
+          });
+        },
+        function () {
+          $('#cweatherd').css({
+            'visibility': 'hidden',
+            'opacity': '0'
+          });
+        });
+
+
+
+      $('#lunch').hover(function () {
+        $('#hometown').css({
+          'opacity': '0.5',
+          'transition:opacity': '1s'
+        });
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#hometown').css({
+          'opacity': '1',
+          'transition:opacity': '1s'
+        });
+      });
+      $('#lunch').hover(function () {
+          $('#lunchd').css({
+            'visibility': 'visible',
+            'opacity': '1'
+          });
+        },
+        function () {
+          $('#lunchd').css({
+            'visibility': 'hidden',
+            'opacity': '0'
+          });
+        });
+
+
+      $('#lunch').hover(function () {
+        $('#othertown').css({
+          'opacity': '0.5',
+          'transition:opacity': '1s'
+        });
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#othertown').css({
+          'opacity': '1',
+          'transition:opacity': '1s'
+        });
+      });
+      $('#lunch').hover(function () {
+          $('#clunchd').css({
+            'visibility': 'visible',
+            'opacity': '1'
+          });
+        },
+        function () {
+          $('#clunchd').css({
+            'visibility': 'hidden',
+            'opacity': '0'
+          });
+        });
+
+
+
+      $('#traffic').hover(function () {
+        $('#hometown').css({
+          'opacity': '0.5',
+          'transition:opacity': '1s'
+        });
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#hometown').css({
+          'opacity': '1',
+          'transition:opacity': '1s'
+        });
+      });
+      $('#traffic').hover(function () {
+          $('#trafficd').css({
+            'visibility': 'visible',
+            'opacity': '1'
+          });
+        },
+        function () {
+          $('#trafficd').css({
+            'visibility': 'hidden',
+            'opacity': '0'
+          });
+        });
+
+
+$('#traffic').hover(function () {
+        $('#othertown').css({
+          'opacity': '0.5',
+          'transition:opacity': '1s'
+        });
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#othertown').css({
+          'opacity': '1',
+          'transition:opacity': '1s'
+        });
+      });
+      $('#traffic').hover(function () {
+          $('#ctrafficd').css({
+            'visibility': 'visible',
+            'opacity': '1'
+          });
+        },
+        function () {
+          $('#ctrafficd').css({
+            'visibility': 'hidden',
+            'opacity': '0'
+          });
+        });
+
+    });
+  </script>
+</body>
+
 </html>
